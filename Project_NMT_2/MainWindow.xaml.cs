@@ -25,7 +25,7 @@ namespace Project_NMT_2
         {
            // Console.OutputEncoding = Encoding.UTF8;
             InitializeComponent();
-            InitializeDB();
+            //InitializeDB();
         }
 
         public void InitializeDB()
@@ -38,6 +38,7 @@ namespace Project_NMT_2
                 new UserPersonalInfomation("Tom", 27)
             };
             db.UserPersonalInfomations.AddRange(users);
+            db.SaveChanges();
             //UserPersonalInfomation user1 = new UserPersonalInfomation() { Name = "Tom", Age = 27 };
             //UserPersonalInfomation user2 = new UserPersonalInfomation() { Name = "Bob", Age = 25 };
             //UserPersonalInfomation user3 = new UserPersonalInfomation() { Name = "Alex", Age = 37 };
@@ -52,7 +53,7 @@ namespace Project_NMT_2
                 new InitializationUser("tom@gmail.com", "6454jsjjdh", 3)
             };
             db.InitializationUsers.AddRange(initializationUsers);
-
+            db.SaveChanges();
             List<Reviews> reviews = new List<Reviews>()
             {
                 new Reviews("review1", 1),
@@ -62,7 +63,7 @@ namespace Project_NMT_2
                 new Reviews("review1", 2)
             };
             db.Reviews.AddRange(reviews);
-
+            db.SaveChanges();
             List<SubjectUsers> subjects = new List<SubjectUsers>()
             {
                 new SubjectUsers(true, true, true, 1),
@@ -70,7 +71,7 @@ namespace Project_NMT_2
                 new SubjectUsers(false, true, false, 3)
             };
             db.SubjectUsers.AddRange(subjects);
-
+            db.SaveChanges();
             List<RatingUsers> ratingUsers = new List<RatingUsers>()
             {
                 new RatingUsers(10, 25, 75, 1),
@@ -78,7 +79,7 @@ namespace Project_NMT_2
                 new RatingUsers(0, 54, 0, 3)
             };
             db.RatingUsers.AddRange(ratingUsers);
-
+            db.SaveChanges();
             List<UkrainianSchoolPerformance> ukrainianSchoolPerformances = new List<UkrainianSchoolPerformance>()
             {
                 new UkrainianSchoolPerformance(94, 1),
@@ -89,7 +90,7 @@ namespace Project_NMT_2
                 new UkrainianSchoolPerformance(100, 2)
             };
             db.UkrainianSchoolPerformances.AddRange(ukrainianSchoolPerformances);
-
+            db.SaveChanges();
             List<MathematicsSchoolPerformance> mathematicsSchoolPerformances = new List<MathematicsSchoolPerformance>()
             {
                 new MathematicsSchoolPerformance(54, 1),
@@ -100,7 +101,7 @@ namespace Project_NMT_2
                 new MathematicsSchoolPerformance(100, 1),
             };
             db.MathematicsSchoolPerformances.AddRange(mathematicsSchoolPerformances);
-
+            db.SaveChanges();
             List<HistorySchoolPerformance> historySchoolPerformances = new List<HistorySchoolPerformance>()
             {
                 new HistorySchoolPerformance(100, 2),
@@ -110,13 +111,13 @@ namespace Project_NMT_2
                 new HistorySchoolPerformance(100, 1),
             };
             db.HistorySchoolPerformances.AddRange(historySchoolPerformances);
-
+            db.SaveChanges();
             List<InitializationAdmin> admins = new List<InitializationAdmin>()
             {
                 new InitializationAdmin("jerry@gmail.com", "dskljdkdn55")
             };
             db.InitializationAdmins.AddRange(admins);
-
+            db.SaveChanges();
             List<SchoolSubjects> schools = new List<SchoolSubjects>()
             {
                 new SchoolSubjects("Ukr"),
@@ -124,19 +125,19 @@ namespace Project_NMT_2
                 new SchoolSubjects("History")
             };
             db.SchoolSubjects.AddRange(schools);
-
+            db.SaveChanges();
             List<ALLTest> aLLTests = new List<ALLTest>()
             {
                 new ALLTest("Test1 ", new DateTime().AddMinutes(60), 4, 1)
             };
             db.ALLTests.AddRange(aLLTests);
-
+            db.SaveChanges();
             List<PassedTest> passedTests = new List<PassedTest>()
             {
                 new PassedTest("Test1", 4, 4, new DateTime().AddMinutes(57), 1, 3)
             };
             db.PassedTests.AddRange(passedTests);
-
+            db.SaveChanges();
             List<QuestionsForTest> questions = new List<QuestionsForTest>()
             {
                 new QuestionsForTest("question1", 1),
@@ -145,7 +146,7 @@ namespace Project_NMT_2
                 new QuestionsForTest("question4", 1)
             };
             db.QuestionsForTests.AddRange(questions);
-
+            db.SaveChanges();
             List<SingleChoiceAnswer> singleChoiceAnswers = new List<SingleChoiceAnswer>()
             {
                 new SingleChoiceAnswer("answer1", false, 1),
@@ -154,7 +155,7 @@ namespace Project_NMT_2
                 new SingleChoiceAnswer("answer4", false, 1)
             };
             db.SingleChoiceAnswers.AddRange(singleChoiceAnswers);
-
+            db.SaveChanges();
             List<MultipleChoiceAnswer> multipleChoiceAnswers = new List<MultipleChoiceAnswer>()
             {
                 new MultipleChoiceAnswer("answer1", true, 2),
@@ -163,7 +164,7 @@ namespace Project_NMT_2
                 new MultipleChoiceAnswer("answer4", true, 2)
             };
             db.MultipleChoiceAnswers.AddRange(multipleChoiceAnswers);
-
+            db.SaveChanges();
             List<MachingAnswer> machingAnswers = new List<MachingAnswer>()
             {
                 new MachingAnswer("answer1", "answerA", 3),
@@ -172,12 +173,13 @@ namespace Project_NMT_2
                 new MachingAnswer("answer4", "answerD", 3)
             };
             db.MachingAnswers.AddRange(machingAnswers);
-
+            db.SaveChanges();
             List<OpenAnswer> openAnswers = new List<OpenAnswer>()
             {
                 new OpenAnswer("answer", "Answer", 4)
             };
             db.OpenAnswers.AddRange(openAnswers);
+            db.SaveChanges();
             MessageBox.Show("ADD");
         }
     }
