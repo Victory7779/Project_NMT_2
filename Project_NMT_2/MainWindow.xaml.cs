@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Project_NMT_2
 {
@@ -124,22 +125,22 @@ namespace Project_NMT_2
             db.InitializationAdmins.AddRange(admins);
             db.SaveChanges();
 
-            //////For SchoolSubjects
-            //List<SchoolSubjects> schools = new List<SchoolSubjects>()
-            //{
-            //    new SchoolSubjects("Українська мова"),
-            //    new SchoolSubjects("Математика"),
-            //    new SchoolSubjects("Історія")
-            //};
-            //db.SchoolSubjects.AddRange(schools);
-            //db.SaveChanges();
+            ////For SchoolSubjects
+            List<SchoolSubjects> schools = new List<SchoolSubjects>()
+            {
+                new SchoolSubjects("Українська мова"),
+                new SchoolSubjects("Математика"),
+                new SchoolSubjects("Історія")
+            };
+            db.SchoolSubjects.AddRange(schools);
+            db.SaveChanges();
 
             //ALLTest
             List<ALLTest> aLLTests = new List<ALLTest>()
             {
-                new ALLTest("Українська мова - НМТ2024 (демоваріант)", new DateTime(), 30, 1),
-                new ALLTest("Математика - НМТ2024 (демоваріант)", new DateTime().AddMinutes(60), 22, 2),
-                new ALLTest("Історія України - НМТ2024 (демоваріант)", new DateTime().AddMinutes(60), 30, 3)
+                new ALLTest("Українська мова - НМТ2024 (демоваріант)", 60, 30, 1),
+                new ALLTest("Математика - НМТ2024 (демоваріант)", 60, 22, 2),
+                new ALLTest("Історія України - НМТ2024 (демоваріант)", 60, 30, 3)
             };
             db.ALLTests.AddRange(aLLTests);
             db.SaveChanges();
@@ -148,7 +149,7 @@ namespace Project_NMT_2
             //PassedTest
             List<PassedTest> passedTests = new List<PassedTest>()
             {
-                new PassedTest("Українська мова - НМТ2024", 25, 30, new DateTime().AddMinutes(57), 1, 3)
+                new PassedTest("Українська мова - НМТ2024", 25, 30, 57, 1, 3)
             };
             db.PassedTests.AddRange(passedTests);
             db.SaveChanges();
