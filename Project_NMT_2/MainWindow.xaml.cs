@@ -277,7 +277,8 @@ namespace Project_NMT_2
                 new QuestionsForTest("Доберіть приклад (А – Д) до кожного типу складного речення (1–4).", 1),//30
 
                 //Математика
-                new QuestionsForTest("Question?", 2), //1 - > id=31
+                new QuestionsForTest("Question1?", 2), //1 - > id=31
+                 new QuestionsForTest("Question2?", 2), //1 - > id=32
             };
             db.QuestionsForTests.AddRange(questions);
             db.SaveChanges();
@@ -455,10 +456,10 @@ namespace Project_NMT_2
             //MultipleChoiceAnswer
             List<MultipleChoiceAnswer> multipleChoiceAnswers = new List<MultipleChoiceAnswer>()
             {
-                new MultipleChoiceAnswer("answer1", true, 2),
-                new MultipleChoiceAnswer("answer2", false, 2),
-                new MultipleChoiceAnswer("answer3", true, 2),
-                new MultipleChoiceAnswer("answer4", true, 2)
+                new MultipleChoiceAnswer("answer1", true, 31),
+                new MultipleChoiceAnswer("answer2", false, 31),
+                new MultipleChoiceAnswer("answer3", true, 31),
+                new MultipleChoiceAnswer("answer4", true, 31)
             };
             db.MultipleChoiceAnswers.AddRange(multipleChoiceAnswers);
             db.SaveChanges();
@@ -546,7 +547,7 @@ namespace Project_NMT_2
             //OpenAnswer
             List<OpenAnswer> openAnswers = new List<OpenAnswer>()
             {
-                new OpenAnswer("answer", "Answer", 4)
+                new OpenAnswer("answer", "Answer", 32)
             };
             db.OpenAnswers.AddRange(openAnswers);
             db.SaveChanges();
