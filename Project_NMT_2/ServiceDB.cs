@@ -15,5 +15,10 @@ namespace Project_NMT_2
         //For table SchoolSubjects 
         public static IEnumerable<string> GetSchoolSubjects()
         => new SqlConnection(connectionString).Query<string>("SELECT subject FROM SchoolSubjects ");
+
+        //For table ALLTeats
+        public static IEnumerable<ALLTest> GetALLTestsString()
+            => new SqlConnection(connectionString).Query<ALLTest>("SELECT * FROM ALLTests ");
+
     }
 }

@@ -25,6 +25,7 @@ namespace Project_NMT_2.Model
         public virtual SchoolSubjects SchoolSubjects { get; set; }
         public virtual ICollection<PassedTest> PassedTests { get; set; }
         public virtual ICollection<QuestionsForTest> QuestionsForTests { get; set; }
+        public ALLTest() { }
         public ALLTest( string title, int time, int countQ, int _id_subject)
         {
             Title = title;
@@ -32,10 +33,10 @@ namespace Project_NMT_2.Model
             Time = time;
             id_subject = _id_subject;
         }
-        public override string ToString()
-        {
-            return $"id: {id} Назва: {Title} к-ть питань: {CountQ} час: {Time}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"id: {id} Назва: {Title} к-ть питань: {CountQ} час: {Time}";
+        //}
 
     }
 }

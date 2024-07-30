@@ -32,13 +32,13 @@
                     <StackPanel Orientation="Horizontal">
                         <ToolBarTray Background="Wheat" HorizontalAlignment="Left" Orientation="Vertical">
                             <ToolBar Band="1" BandIndex="1"  Height="200" >
-                                <Button Name="createBtn" ToolTip="Створити тест" Width="50" ToolBar.OverflowMode="AsNeeded">
+                                <Button Name="createBtn" ToolTip="Створити тест" Width="50" ToolBar.OverflowMode="AsNeeded" Click="createBtn_Click">
                                     <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/CreateTest.png"/>
                                 </Button>
-                                <Button Name="updateBtn" ToolTip="Обновити тест" Width="50" ToolBar.OverflowMode="AsNeeded">
+                                <Button Name="updateBtn" ToolTip="Обновити тест" Width="50" ToolBar.OverflowMode="AsNeeded" Click="updateBtn_Click">
                                     <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/UpdateTest.png"/>
                                 </Button>
-                                <Button Name="deleteBtn" ToolTip="Видалити тест" Width="50" ToolBar.OverflowMode="AsNeeded">
+                                <Button Name="deleteBtn" ToolTip="Видалити тест" Width="50" ToolBar.OverflowMode="AsNeeded" Click="deleteBtn_Click">
                                     <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/DeleteTest.png"/>
                                 </Button>
                             </ToolBar>
@@ -46,13 +46,24 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Виберіть предмет" Margin="75 5 5 5" HorizontalContentAlignment="Center"/>
-                                <ComboBox x:Name="subjectForTestComboBox" Width="300" Margin="40 3" ItemsSource="{Binding Source={StaticResource SchoolSubjects}}" ></ComboBox>
+                                <ComboBox x:Name="subjectForTestComboBox" Width="300" Margin="40 3" ItemsSource="{Binding Source={StaticResource SchoolSubjects}}">
+                                    
+                                </ComboBox>
                             </StackPanel>
-                            <ListView Margin="50 10 10 10" Width="600" Height="300"/>
+                            <ListView x:Name="testListView" Margin="50 10 10 10" Width="600" Height="300" ItemsSource="{Binding allTest}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                        <GridViewColumn Header="Назва" Width="470" DisplayMemberBinding="{Binding Title}"/>
+                                        <GridViewColumn Header="К-ть питань" Width="50" DisplayMemberBinding="{Binding CountQ}"/>
+                                        <GridViewColumn Header="Час" Width="50" DisplayMemberBinding="{Binding Time}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
             </TabControl>
-        </Grid>
+        </Grid> 
     </Grid>
 </Window>
