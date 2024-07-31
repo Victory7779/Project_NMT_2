@@ -25,7 +25,7 @@ namespace Project_NMT_2
         public static WindowAdmin_TestStart windowAdmin_TestStart;
         public  MainWindow()
         {
-           //Console.OutputEncoding = System.Text.Encoding.UTF8;
+           
 
             InitializeComponent();
            //InitializeDB();
