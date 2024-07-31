@@ -17,8 +17,27 @@ namespace Project_NMT_2
         => new SqlConnection(connectionString).Query<string>("SELECT subject FROM SchoolSubjects ");
 
         //For table ALLTeats
-        public static IEnumerable<ALLTest> GetALLTestsString()
+        public static IEnumerable<ALLTest> GetALLTests()
             => new SqlConnection(connectionString).Query<ALLTest>("SELECT * FROM ALLTests ");
+        public static ALLTest GetALLTestWithID(int id)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).QueryFirst<ALLTest>($"SELECT * FROM ALLTests WHERE id={id}");
+            }
+            catch { return null; }
+        }
+        public static void DeleteALLTest(int id)
+        {
+            if (GetALLTestWithID(id) == null) return;
+            using (var db = new SqlConnection(connectionString))
+            {
+                db.Open();
+                string sql = $"DELETE ALLTests WHERE id={id}";
+                db.Execute(sql);
+                db.Close();
+            }
+        }
 
     }
 }

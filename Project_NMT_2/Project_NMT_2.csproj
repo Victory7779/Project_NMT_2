@@ -77,6 +77,12 @@
     <Compile Include="WindowAdmin_TestStart.xaml.cs">
       <DependentUpon>WindowAdmin_TestStart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowCreateOrUpdateTest.xaml.cs">
+      <DependentUpon>WindowCreateOrUpdateTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowMenuCreateTest.xaml.cs">
+      <DependentUpon>WindowMenuCreateTest.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +96,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WindowAdmin_TestStart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowCreateOrUpdateTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowMenuCreateTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

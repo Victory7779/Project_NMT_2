@@ -1,0 +1,76 @@
+﻿<Window x:Class="Project_NMT_2.WindowMenuCreateTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_NMT_2"
+        mc:Ignorable="d"
+        Title="Вибір питань" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" 
+                    Grid.Row="0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left"
+                    Margin="50 0 0 0">
+            <Button x:Name="oneOption_Btn" 
+                    Height="180" 
+                    Width="200" 
+                    Background="White"
+                    Click="oneOption_Btn_Click">
+                <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/OneOption.jpg" Height="200" Width="200"/>
+            </Button>
+            <TextBlock Text="Питання з однією відповіддю"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 0">
+            <Button x:Name="manyOptions_Btn" 
+                    Height="180" 
+                    Width="200" 
+                    Background="White"
+                    Click="manyOptions_Btn_Click">
+                <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/ManyOptions.jpg" Height="200" Width="200"/>
+            </Button>
+            <TextBlock Text="Питання з декількома відповідями"
+                        HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left"
+                    Margin="50 0 0 0">
+            <Button x:Name="openOption_Btn" 
+                    Height="180" 
+                    Width="200" 
+                    Background="White"
+                    Click="openOption_Btn_Click">
+                <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/OpenOption.jpg" Height="200" Width="200"/>
+            </Button>
+            <TextBlock Text="Питання з відкритою відповіддю"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right"
+                    Margin="0 0 50 0">
+            <Button x:Name="conformityOption_Btn" 
+                    Height="180" 
+                    Width="200" 
+                    Background="White"
+                    Click="conformityOption_Btn_Click"> 
+                <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/ConformityOption.jpg" Height="200" Width="200"/>
+            </Button>
+            <TextBlock Text="Питання з відповідностями"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>

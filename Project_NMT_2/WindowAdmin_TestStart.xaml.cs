@@ -20,24 +20,25 @@ namespace Project_NMT_2
     /// </summary>
     public partial class WindowAdmin_TestStart : Window
     {
+        // Window for Test Template
+        private WindowCreateOrUpdateTest createOrUpdateTest;
+        //For Binding ListView
         private List<ALLTest> aLLTest { get; set; }
         public WindowAdmin_TestStart()
         {
-           
             InitializeComponent();
-            InitializeALLTest();
-            
+            InitializeALLTest();   
         }
 
         private void InitializeALLTest()
         {
             aLLTest = new List<ALLTest>();
-            aLLTest = ServiceDB.GetALLTestsString().ToList();
+            aLLTest = ServiceDB.GetALLTests().ToList();
             try
             {
                 if (aLLTest != null)
                 {
-                    testListView.ItemsSource = aLLTest;
+                    test_ListView.ItemsSource = aLLTest;
                 }
             }
             catch (Exception ex)
@@ -49,6 +50,19 @@ namespace Project_NMT_2
 
         private void createBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (createOrUpdateTest == null || PresentationSource.FromVisual(createOrUpdateTest) == null)
+                {
+                    createOrUpdateTest = new WindowCreateOrUpdateTest();
+                    createOrUpdateTest.Show();
+                }
+                else createOrUpdateTest.Activate();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
 
         }
 
@@ -57,9 +71,31 @@ namespace Project_NMT_2
 
         }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        private void deleteBtn_Click(object sender, RoutedEventArgs e) /// WORK!!!!
         {
 
+            //Окно сообщения
+            //-------------------------------------------------
+            string messageBoxText = "Ви впевнені?";
+            string caption = "Видалення теста";
+            MessageBoxButton button = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+
+            result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            //-------------------------------------------------
+            if(result==MessageBoxResult.Yes)
+            {
+                try
+                {
+                    ServiceDB.DeleteALLTest((test_ListView.SelectedItem as ALLTest).id);
+                    MessageBox.Show("Тест видалений!");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
