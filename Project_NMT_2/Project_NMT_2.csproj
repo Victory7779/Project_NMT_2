@@ -83,6 +83,9 @@
     <Compile Include="WindowMenuCreateTest.xaml.cs">
       <DependentUpon>WindowMenuCreateTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowOnePoint.xaml.cs">
+      <DependentUpon>WindowOnePoint.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowMenuCreateTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowOnePoint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,15 +29,60 @@ namespace Project_NMT_2
         }
         public static void DeleteALLTest(int id)
         {
-            if (GetALLTestWithID(id) == null) return;
-            using (var db = new SqlConnection(connectionString))
+            try
             {
-                db.Open();
-                string sql = $"DELETE ALLTests WHERE id={id}";
-                db.Execute(sql);
-                db.Close();
+                if (GetALLTestWithID(id) == null) return;
+                using (var db = new SqlConnection(connectionString))
+                {
+                    db.Open();
+                    string sql = $"DELETE ALLTests WHERE id={id}";
+                    db.Execute(sql);
+                    db.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
+        public static void AddALLTestSQL(ALLTest test)
+        {
+            try
+            {
+                using (var db = new SqlConnection(connectionString))
+                {
+                    db.Open();
+                    string sql = $"INSERT ALLTests (Title, CountQ, Time) " +
+                        $"VALUES ('{test.Title}', {test.CountQ}, {test.Time})";
+                    db.Execute(sql);
+                    db.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        //Count question
+        public static int? CountQuestionsOfTest(int id)
+        {
+            if (GetALLTestWithID(id) == null) return null;
+            int count = new SqlConnection(connectionString).QueryFirst<int>($"SELECT COUNT(*) WHERE id_test={id}");
+            return count;
+
+        }
+
+        //Subject 
+        public static int IdSchoolSubject(string subject)
+        {
+            try
+            {
+                int idSubject = new SqlConnection(connectionString).QueryFirst<int>($"SELEC id FROM SchoolSubjects WHERE subject={subject}");
+                return idSubject;
+            }
+            catch { return 0; }
+        }
     }
 }

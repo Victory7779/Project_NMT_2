@@ -22,12 +22,14 @@ namespace Project_NMT_2
     {
         // Window for Test Template
         private WindowCreateOrUpdateTest createOrUpdateTest;
+
         //For Binding ListView
         private List<ALLTest> aLLTest { get; set; }
         public WindowAdmin_TestStart()
         {
             InitializeComponent();
-            InitializeALLTest();   
+            InitializeALLTest();
+            
         }
 
         private void InitializeALLTest()
@@ -56,6 +58,7 @@ namespace Project_NMT_2
                 {
                     createOrUpdateTest = new WindowCreateOrUpdateTest();
                     createOrUpdateTest.Show();
+                    this.Close();
                 }
                 else createOrUpdateTest.Activate();
             }
@@ -96,6 +99,11 @@ namespace Project_NMT_2
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void exit_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

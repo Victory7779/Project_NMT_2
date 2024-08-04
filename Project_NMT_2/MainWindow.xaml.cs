@@ -560,6 +560,7 @@ namespace Project_NMT_2
             {
                 windowAdmin_TestStart = new WindowAdmin_TestStart();
                 windowAdmin_TestStart.Show();
+                this.Close();
             }
             else windowAdmin_TestStart.Activate();
         }

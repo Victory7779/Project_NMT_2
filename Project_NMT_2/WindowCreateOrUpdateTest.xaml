@@ -13,6 +13,7 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
+                <!--Title-->
                 <TextBlock Text="*" 
                    FontWeight="Heavy" 
                    Foreground="#FFAE1919" 
@@ -29,6 +30,7 @@
                  BorderThickness="2"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
+                <!--Выбор предмета-->
                 <TextBlock Text="*" 
                     FontWeight="Heavy" 
                     Foreground="#FFAE1919" 
@@ -39,6 +41,7 @@
                           ItemsSource="{Binding Source={StaticResource SchoolSubjects}}"
                            Width="300"
                           Height="35"/>
+                <!--Время-->
                 <TextBlock Text="*" 
                     FontWeight="Heavy" 
                     Foreground="#FFAE1919" 
@@ -60,8 +63,13 @@
                          VerticalAlignment="Center"
                          HorizontalAlignment="Center"
                          BorderThickness="2"/>
+                <ProgressBar x:Name="testGeneralInf_ProgressBar"
+                             Margin="20 5 0 5"
+                             Width="150"
+                             Background="Aqua"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
+                <!--Список вопросов теста-->
                 <ListView x:Name="question_ListView" 
                           Width="500" 
                           Height="300"
@@ -77,6 +85,7 @@
                     </ListView.View>
                 </ListView>
                 <StackPanel Width="250">
+                    <!--Додати питання до тесту-->
                     <Button x:Name="addQuestion_Btn" 
                             Width="100" 
                             Height="50"
@@ -87,6 +96,7 @@
                                    FontSize="20"
                                    FontWeight="DemiBold"/>
                     </Button>
+                    <!--Видалити питання-->
                     <Button x:Name="deleteQuestion_Btn"    Width="100" 
                             Height="50"
                             Margin="20 20 10 10"
@@ -96,12 +106,23 @@
                                    FontSize="20"
                                    FontWeight="DemiBold"/>  
                     </Button>
+                    <!--Збереження тесту-->
                     <Button x:Name="saveTest_Btn"    Width="100" 
                             Height="50"
-                            Margin="0 90 10 10"
+                            Margin="0 30 20 0"
                             HorizontalAlignment="Right"
                             Click="saveTest_Btn_Click">
                         <TextBlock Text="Зберегти"
+                                   FontSize="20"
+                                   FontWeight="DemiBold"/>
+                    </Button>
+                    <!--Вийти з вікна-->
+                    <Button x:Name="exit_Btn"    Width="100" 
+                            Height="50"
+                            Margin="0 10 20 10"
+                            HorizontalAlignment="Right"
+                            Click="exit_Btn_Click">
+                        <TextBlock Text="Вийти"
                                    FontSize="20"
                                    FontWeight="DemiBold"/>
                     </Button>
