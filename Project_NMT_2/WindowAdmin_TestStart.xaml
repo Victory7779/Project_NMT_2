@@ -73,7 +73,7 @@
                 </TabItem>
             </TabControl>
         </Grid>
-        <!--Общая кнопка для выхода с программы-->
+        <!--Общая кнопка для выхода с программы -->
         <Button x:Name="exit_Btn"
          Height="30"
          Width="50"
