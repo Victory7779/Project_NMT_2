@@ -56,7 +56,7 @@ namespace Project_NMT_2
             {
                 if (createOrUpdateTest == null || PresentationSource.FromVisual(createOrUpdateTest) == null)
                 {
-                    createOrUpdateTest = new WindowCreateOrUpdateTest();
+                    createOrUpdateTest = new WindowCreateOrUpdateTest(this);
                     createOrUpdateTest.Show();
                     this.Close();
                 }

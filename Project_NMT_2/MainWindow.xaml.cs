@@ -23,13 +23,25 @@ namespace Project_NMT_2
     public partial class MainWindow : Window
     {
         public static WindowAdmin_TestStart windowAdmin_TestStart;
+        System.Windows.Threading.DispatcherTimer timer;
         public  MainWindow()
         {
-           
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
 
             InitializeComponent();
            //InitializeDB();
         }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (timer_Label.Content == null) timer_Label.Content = "60";
+            string tL = (int.Parse(timer_Label.Content.ToString()) - 1).ToString();
+            timer_Label.Content = tL;
+        }
+        
 
         public static void InitializeDB()
         {

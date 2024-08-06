@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace Project_NMT_2
 {
     /// <summary>
-    /// Interaction logic for WindowOnePoint.xaml
+    /// Interaction logic for WindowOpenOption.xaml
     /// </summary>
-    public partial class WindowOnePoint : Window
+    public partial class WindowOpenOption : Window
     {
-        public WindowOnePoint()
+        public WindowOpenOption()
         {
             InitializeComponent();
-        }
-
-        private void addOneOption_Btn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

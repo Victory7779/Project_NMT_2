@@ -80,11 +80,20 @@
     <Compile Include="WindowCreateOrUpdateTest.xaml.cs">
       <DependentUpon>WindowCreateOrUpdateTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowManyOptions.xaml.cs">
+      <DependentUpon>WindowManyOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowMarginOptions.xaml.cs">
+      <DependentUpon>WindowMarginOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowMenuCreateTest.xaml.cs">
       <DependentUpon>WindowMenuCreateTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowOnePoint.xaml.cs">
       <DependentUpon>WindowOnePoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowOpenOption.xaml.cs">
+      <DependentUpon>WindowOpenOption.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -106,11 +115,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowManyOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowMarginOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowMenuCreateTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowOnePoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowOpenOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

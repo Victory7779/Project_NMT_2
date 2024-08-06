@@ -56,17 +56,18 @@
                 <TextBox x:Name="timeTest_TestBox"
                          Width="100"
                          Height="40"
-                         Text="00:00"
+                         Text=""
                          FontSize="30" 
                          FontStyle="Italic"
                          BorderBrush="Black"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Center"
                          BorderThickness="2"/>
-                <ProgressBar x:Name="testGeneralInf_ProgressBar"
-                             Margin="20 5 0 5"
-                             Width="150"
-                             Background="Aqua"/>
+                <TextBlock Text="хв"
+                           Margin="5 0 0 0"
+                           VerticalAlignment="Bottom"
+                           FontSize="20"
+                           FontWeight="Bold"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <!--Список вопросов теста-->
