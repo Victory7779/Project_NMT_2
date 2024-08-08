@@ -1,7 +1,9 @@
 ﻿using Project_NMT_2.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,6 +31,27 @@ namespace Project_NMT_2
         void Execute();
     }
     //Commands - real
+    //Command - creat Id
+    class CreateIDtest : ITest
+    {
+        private Receiver _receiver;
+        public CreateIDtest(Receiver receiver)
+        {
+            _receiver = receiver;
+        }
+
+        public void Execute()
+        {
+            try
+            {
+                _receiver.IdAddClassALLTests();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
     //Command - for print information about test into Window
     class PrintInfTest : ITest
     {
@@ -136,15 +159,39 @@ namespace Project_NMT_2
     //Command - for save new test
     class SaveInfoTest : ITest
     {
+        private Receiver _receiver;
+        private List<QuestionsForTest> _questions;
+        private ALLTest _test;
+        public SaveInfoTest(Receiver receiver, List<QuestionsForTest> questions, ALLTest test)
+        {
+            _receiver = receiver;
+            _questions = questions;
+            _test = test;
+        }
+
         public void Execute()
         {
-            throw new NotImplementedException();
+            if (_test.id!=null && _test.Title!=null && _test.Time!=null && _test.CountQ!=null && _test.id_subject!=null)
+            {
+                _receiver.TestSaveInDB(_test);
+            }
+            if (_questions!=null)
+            {
+                _receiver.QuestionsSaveinDB(_questions);
+            }
         }
     }
+
+
     //Receiver - получатель, содержить информацию и действия обработки информации
     public class Receiver
     {
         private WindowCreateOrUpdateTest window;
+        public Receiver(WindowCreateOrUpdateTest window)
+        {
+            this.window = window;
+        }
+
         //private ALLTest tempTest { get; set; } = new ALLTest();
         //Print
         public void TitlePrint(string title)
@@ -163,10 +210,10 @@ namespace Project_NMT_2
             window.subjectForTest_ComboBox.SelectedValue = subject;
         }
 
-        //public void QuestionsPrint(IEnumerable<QuestionsForTest> questions)
-        //{
-        //    window.question_ListView.ItemsSource = questions;
-        //}
+        public void QuestionsPrint(IEnumerable<QuestionsForTest> questions)
+        {
+            window.question_ListView.ItemsSource = questions;
+        }
 
         //Update=Save in DB
         public void TitleUpdateInDB(ALLTest aLLTest)
@@ -231,6 +278,7 @@ namespace Project_NMT_2
         {
             try
             {
+                window.test.id = 0;
                 var lastTest = ServiceDB.LastTest();
                 window.test.id = lastTest.id + 1;
             }
@@ -278,23 +326,20 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-        //public void CountQAddClassALLTests(List<QuestionsForTest> questions)
-        //{
-        //    try
-        //    {
-        //        if (questions != null)
-        //        {
-        //            window.test.CountQ = questions.Count();
-        //        }
-        //        else window.test.CountQ = 0;
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+        public void CountQAddClassALLTests(List<QuestionsForTest> questions)
+        {
+            try
+            {
+                window.test.CountQ = 0;
+                if (questions != null) window.test.CountQ = questions.Count;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         //Save in DB new test
-        public void TestSaveFinDB(ALLTest aLLTest)
+        public void TestSaveInDB(ALLTest aLLTest)
         {
             try
             {
@@ -305,19 +350,74 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-        //public void QuestionsSaveinDB(List<QuestionsForTest> questions)
-        //{
-        //    try
-        //    {
-        //        ServiceDB.AddQuestions(questions);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+        public void QuestionsSaveinDB(List<QuestionsForTest> questions)
+        {
+            try
+            {
+                ServiceDB.AddQuestions(questions);
+                foreach (var question in questions)
+                {
+                    if (question.SingleChoiceAnswers!=null)
+                    {
+                        ServiceDB.AddSingleChoiceAnswers(question.SingleChoiceAnswers);
+                    }
+                    else if(question.MultipleChoiceAnswers!=null)
+                    {
+                        ServiceDB.AddMultipleChoiceAnswer(question.MultipleChoiceAnswers);
+                    }
+                    else if (question.MachingAnswers!=null)
+                    {
+                        ServiceDB.AddMachingAnswer(question.MachingAnswers);
+                    }
+                    else if(question.OpenAnswers!=null)
+                    {
+                        ServiceDB.AddOpenAnswer(question.OpenAnswers);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 
+    //Inviker - отправитель, содержит поочередность вызова команд
+    public class Invoker
+    {
+        private ITest _onStart;
+        private ITest _onMiddel;
+        private ITest _onFinish;
+        public void SetOnStart(ITest start)
+        {
+            _onStart = start;
+        }
+        public void SetOnMiddel(ITest middel)
+        {
+            _onMiddel = middel;
+        }
+        public void SetOnFinish(ITest finish)
+        {
+            _onFinish = finish;
+        }
+        public void WorkWithTest()
+        {
+            if (_onStart is ITest)
+            {
+                _onStart.Execute();
+            }
+            if (_onMiddel is ITest)
+            {
+                _onMiddel.Execute();
+                MessageBox.Show("Тест не збережений!");
+            }
+            if (_onFinish is ITest)
+            {
+                _onFinish.Execute();
+                MessageBox.Show("Тест успішно збережений!");
+            }
+        }
+    }
 
 
 
@@ -327,27 +427,41 @@ namespace Project_NMT_2
         //Window - Menu questions
         protected WindowMenuCreateTest _menuCreateTest;
         // Window Admin Test
-        private WindowAdmin_TestStart _windowAdmin_TestStart;
+        public WindowAdmin_TestStart _windowAdmin_TestStart;
 
-        //
-        //Count questions
-        //private static int CountQ { get; set; } = 0;
-        //Dictionary for questions with one 0ption
-        public Dictionary<QuestionsForTest, SingleChoiceAnswer> questionWithOneOption { get; set; } = new Dictionary<QuestionsForTest, SingleChoiceAnswer>();
-        //Dictionary for questions with many 0ptions
-        public Dictionary<QuestionsForTest, MultipleChoiceAnswer> questionWithManyOptions { get; set; } = new Dictionary<QuestionsForTest, MultipleChoiceAnswer>();
-        //Dictionary for questions with open 0ption
-        public Dictionary<QuestionsForTest, OpenAnswer> questionWithOpenOption { get; set; } = new Dictionary<QuestionsForTest, OpenAnswer>();
-        //Dictionary for questions with maching 0ption
-        public Dictionary<QuestionsForTest, MachingAnswer> questionWithMaching { get; set; } = new Dictionary<QuestionsForTest, MachingAnswer>();
+        //List for questions with one 0ption
+        public List<QuestionsForTest> questions { get; set; } = new List<QuestionsForTest>();
 
         //Test General Infomation for table ALLTests
-        public ALLTest test { get; set; }
+        public ALLTest test { get; set; } = new ALLTest();
+        //Work with test
+        private Invoker _workWithTest { get; set; } = new Invoker();
+        private Receiver _receiver { get; set; }
 
         public WindowCreateOrUpdateTest(WindowAdmin_TestStart admin_TestStart)
         {
+            _receiver = new Receiver(this);
             _windowAdmin_TestStart = admin_TestStart;
+            CreateTest();
             InitializeComponent();
+            
+        }
+        private void CreateTest()
+        {
+            try
+            {
+                if (_windowAdmin_TestStart.create_Btn.IsPressed==true)
+                {
+                    _workWithTest.SetOnStart(new CreateIDtest(_receiver));
+                    _workWithTest.WorkWithTest();
+                   // _workWithTest = new Invoker();
+                }
+                else return;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -357,17 +471,19 @@ namespace Project_NMT_2
         /// </summary>
         private void addQuestion_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    if (_admin_TestStart.create_Btn.IsPressed == true)
-            //    {
-            //        AddTestForDB();
-            //    }
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                if (_menuCreateTest == null)
+                {
+                    _menuCreateTest = new WindowMenuCreateTest();
+                    _menuCreateTest.Show();
+                }
+                else _menuCreateTest.Activate();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //Button - Delete Question
@@ -379,14 +495,16 @@ namespace Project_NMT_2
         //Button - Save Test
         private void saveTest_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Erorr");
-            //}
+            try
+            {
+                _workWithTest.SetOnStart(new AddInfTest(_receiver, titleTest_TestBox.Text, int.Parse(timeTest_TestBox.Text), subjectForTest_ComboBox.SelectedItem.ToString(), questions));
+                _workWithTest.SetOnFinish(new SaveInfoTest(_receiver, questions, test));
+                _workWithTest.WorkWithTest();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erorr");
+            }
 
         }
 
@@ -395,7 +513,8 @@ namespace Project_NMT_2
         {
             try
             {
-                if (_windowAdmin_TestStart==null)
+                var exit = MessageBox.Show("Ви хочете вийти з сторінки?", "Вихід з сторінки", MessageBoxButton.YesNo);
+                if (_windowAdmin_TestStart==null && exit==MessageBoxResult.Yes)
                 {
                     _windowAdmin_TestStart = new WindowAdmin_TestStart();
                     _windowAdmin_TestStart.Show();
@@ -407,70 +526,6 @@ namespace Project_NMT_2
         }
 
 
-        //
-        //Fill test
-        //
-        private  void InformationGeneralTest()
-        {
-            //try
-            //{
-            //    int id_subject=0;
-            //    if (subjectForTest_ComboBox.SelectedItem == null)
-            //    {
-            //        MessageBox.Show("Виберіть предмет");
-            //        return;
-            //    }
-            //    id_subject = ServiceDB.IdSchoolSubject((subjectForTest_ComboBox.SelectedItem as SchoolSubjects).subject);
-
-            //    if (titleTest_TestBox.Text == " ")
-            //    { 
-            //        MessageBox.Show("Напишіть назву теста.");
-            //        return;
-            //    }
-            //    if (int.Parse(timeTest_TestBox.Text.Substring(0,2))<=24 && int.Parse(timeTest_TestBox.Text.Substring(0, 2)) <= 0 && timeTest_TestBox.Text.Substring(2,1)==":")
-            //    {
-                    
-            //    }
-
-            //    test = new ALLTest(titleTest_TestBox.Text, int.Parse(timeTest_TestBox.Text), CountQ, id_subject);
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-        }
-        //If click button CreateTest
-        //private void AddTestForDB()
-        //{
-        //    try
-            //{
-            //        if (test != null)
-            //        {
-            //            if ((_menuCreateTest == null || PresentationSource.FromVisual(_menuCreateTest) == null))
-            //            {
-            //                _menuCreateTest = new WindowMenuCreateTest();
-            //                _menuCreateTest.Show();
-            //            }
-            //            else
-            //            {
-            //                _menuCreateTest.Activate();
-            //                //MessageBox.Show("Вікно вже відкрито або\n Ви не заповнили обов'язкові поля.");
-            //            }
-            //        }
-            //        else MessageBox.Show("Вікно вже відкрито або\n Ви не заповнили обов'язкові поля.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error");
-            //}
-
-        //}
-        private  void UpdateTestWithDB()
-        {
-
-        }
-
-        
 
 
     }
