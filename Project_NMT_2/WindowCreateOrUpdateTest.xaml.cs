@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,6 @@ using System.Windows.Shapes;
 
 namespace Project_NMT_2
 {
-    /// <summary>
-    /// Interaction logic for WindowCreateOrUpdateTest.xaml
-    /// </summary>
-    /// 
-
-
     ///Patern Command
     ///Command - interface
     ///
@@ -174,10 +169,16 @@ namespace Project_NMT_2
             if (_test.id!=null && _test.Title!=null && _test.Time!=null && _test.CountQ!=null && _test.id_subject!=null)
             {
                 _receiver.TestSaveInDB(_test);
+                if (_questions != null)
+                {
+                    _receiver.QuestionsSaveinDB(_questions);
+                    MessageBox.Show("Тест успішно збережено!");
+                }
+                else MessageBox.Show("Тест збережено без питань!");
             }
-            if (_questions!=null)
+            else
             {
-                _receiver.QuestionsSaveinDB(_questions);
+                MessageBox.Show("Зберегти не вийшло! \n Якісь дані не були правильно заповнені. ");
             }
         }
     }
@@ -409,15 +410,15 @@ namespace Project_NMT_2
             if (_onMiddel is ITest)
             {
                 _onMiddel.Execute();
-                MessageBox.Show("Тест не збережений!");
             }
             if (_onFinish is ITest)
             {
                 _onFinish.Execute();
-                MessageBox.Show("Тест успішно збережений!");
             }
         }
     }
+
+
 
 
 
@@ -428,11 +429,9 @@ namespace Project_NMT_2
         protected WindowMenuCreateTest _menuCreateTest;
         // Window Admin Test
         public WindowAdmin_TestStart _windowAdmin_TestStart;
+        private WindowAdmin_TestStart windowAdmin_Test;
 
-        //List for questions with one 0ption
         public List<QuestionsForTest> questions { get; set; } = new List<QuestionsForTest>();
-
-        //Test General Infomation for table ALLTests
         public ALLTest test { get; set; } = new ALLTest();
         //Work with test
         private Invoker _workWithTest { get; set; } = new Invoker();
@@ -442,11 +441,11 @@ namespace Project_NMT_2
         {
             _receiver = new Receiver(this);
             _windowAdmin_TestStart = admin_TestStart;
-            CreateTest();
+            StartTest();
             InitializeComponent();
             
         }
-        private void CreateTest()
+        private void StartTest()//Work
         {
             try
             {
@@ -463,8 +462,6 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-
-
 
         /// <summary>
         ///Button -  ADD Questions
@@ -487,12 +484,15 @@ namespace Project_NMT_2
         }
 
         //Button - Delete Question
+        //________________________________________________________
         private void deleteQuestion_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            int id_q = ServiceDB.IdSchoolSubject(subjectForTest_ComboBox.SelectedValue.ToString());
+            MessageBox.Show(id_q.ToString());
         }
 
         //Button - Save Test
+        //_________________________________________________________________
         private void saveTest_Btn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -514,10 +514,10 @@ namespace Project_NMT_2
             try
             {
                 var exit = MessageBox.Show("Ви хочете вийти з сторінки?", "Вихід з сторінки", MessageBoxButton.YesNo);
-                if (_windowAdmin_TestStart==null && exit==MessageBoxResult.Yes)
+                if (windowAdmin_Test==null && exit==MessageBoxResult.Yes)
                 {
-                    _windowAdmin_TestStart = new WindowAdmin_TestStart();
-                    _windowAdmin_TestStart.Show();
+                    windowAdmin_Test = new WindowAdmin_TestStart();
+                    windowAdmin_Test.Show();
                     this.Close();
                 }
             }

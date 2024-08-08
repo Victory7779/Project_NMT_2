@@ -50,7 +50,7 @@ namespace Project_NMT_2
             
         }
 
-        private void createBtn_Click(object sender, RoutedEventArgs e)
+        private void createBtn_Click(object sender, RoutedEventArgs e)//Work
         {
             try
             {
@@ -74,7 +74,7 @@ namespace Project_NMT_2
 
         }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e) /// WORK!!!!
+        private void deleteBtn_Click(object sender, RoutedEventArgs e) //WORK!!!!
         {
 
             //Окно сообщения
@@ -92,6 +92,8 @@ namespace Project_NMT_2
                 try
                 {
                     ServiceDB.DeleteALLTest((test_ListView.SelectedItem as ALLTest).id);
+                    aLLTest.Remove(test_ListView.SelectedItem as ALLTest);
+                    test_ListView.Items.Refresh();
                     MessageBox.Show("Тест видалений!");
                 }
                 catch(Exception ex)
@@ -101,9 +103,21 @@ namespace Project_NMT_2
             }
         }
 
-        private void exit_Btn_Click(object sender, RoutedEventArgs e)
+        private void exit_Btn_Click(object sender, RoutedEventArgs e)// Work
         {
-            this.Close();
+            try
+            {
+                var exit = MessageBox.Show("Ви дійсно хочете завершити програму?", "Вихід з програми", MessageBoxButton.YesNo);
+                if (exit==MessageBoxResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

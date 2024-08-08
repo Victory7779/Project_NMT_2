@@ -17,6 +17,7 @@ using System.Windows.Threading;
 
 namespace Project_NMT_2
 {
+   
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -30,7 +31,6 @@ namespace Project_NMT_2
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
-
             InitializeComponent();
            //InitializeDB();
         }

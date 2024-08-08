@@ -21,7 +21,7 @@ namespace Project_NMT_2
         {
             try
             {
-                int idSubject = new SqlConnection(connectionString).QueryFirst<int>($"SELEC id FROM SchoolSubjects WHERE subject='{subject}'");
+                int idSubject = new SqlConnection(connectionString).QueryFirst<int>($"SELECT id FROM SchoolSubjects WHERE subject='{subject}'");
                 return idSubject;
             }
             catch { return 0; }
@@ -35,6 +35,7 @@ namespace Project_NMT_2
             }
             catch { return null; }
         }
+
 
         //For table ALLTeats
         //Выводим список всех тестов
@@ -100,7 +101,7 @@ namespace Project_NMT_2
                 using (var db = new SqlConnection(connectionString))
                 {
                     db.Open();
-                    string sql = $"INSERT ALLTests (Title, CountQ, Time) " +
+                    string sql = $"INSERT ALLTests (Title, CountQ, Time, id_subject) " +
                         $"VALUES ('{test.Title}', {test.CountQ}, {test.Time}, {test.id_subject})";
                     db.Execute(sql);
                     db.Close();
