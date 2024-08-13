@@ -8,13 +8,46 @@
         Title="Питання" Height="450" Width="800"
         WindowStyle="SingleBorderWindow"
         Background="Bisque"
-        Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/icon.png"
-    >
+        Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/icon.png">
+    <Window.Resources>
+        <!--Button-->
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Margin" Value="10 0 10 10"/>
+            <!--Наклон-->
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <SkewTransform AngleX="10"/>
+                </Setter.Value>
+            </Setter>
+            <!--Тень-->
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Green"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="Bisque"/>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="GreenYellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!--TextBox-->
+        <Style x:Key="Question" TargetType="TextBox">
+            
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBox x:Name="question_TextBox"
                  Grid.Row="0"
@@ -30,15 +63,16 @@
                  TextWrapping="Wrap"/>
         <StackPanel Grid.Row="1">
             <!--Обозначения  вопросов и ответов-->
-            <StackPanel x:Name="radioBtnAndTextBox_SrackPanel"
+            <StackPanel x:Name="answer_StackPanel"
                         Orientation="Vertical"
                         Width="650"
                         HorizontalAlignment="Left"
                         Margin="90 0 0 0">
-                <StackPanel Orientation="Horizontal" 
+                <!--<StackPanel x:Name="radioBt_StackPanel_1"
+                            Orientation="Horizontal" 
                             VerticalAlignment="Center"
                             Margin="0 0 0 10">
-                    <RadioButton Margin="0 0 10 0"/>
+                    <RadioButton GroupName="Choice" Margin="0 0 10 0"/>
                     <TextBox TextWrapping="Wrap"
                              Width="600"
                              Height="20"/>
@@ -46,22 +80,30 @@
                 <StackPanel Orientation="Horizontal" 
                             VerticalAlignment="Center"
                             Margin="0 0 0 10">
-                    <RadioButton Margin="0 0 10 0"/>
+                    <RadioButton GroupName="Choice" Margin="0 0 10 0"/>
                     <TextBox TextWrapping="Wrap"
                              Width="600"
                              Height="20"/>
-                </StackPanel>
-                <Button x:Name="addOneOption_Btn"
-                        Height="20"
-                        Width="20"
-                        Margin="0 10 0 0"
-                        BorderThickness="0"
-                        HorizontalAlignment="Left"
-                        Click="addOneOption_Btn_Click">
-                    <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/Plus.png"/>
-                </Button>
+                </StackPanel>-->
 
             </StackPanel>
+            <Button x:Name="addOneOption_Btn"
+                    Height="20"
+                    Width="20"
+                    Margin="90 10 0 0"
+                    BorderThickness="0"
+                    HorizontalAlignment="Left"
+                    Click="addOneOption_Btn_Click">
+                <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/Plus.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button x:Name="save_Btn" Content="Зберегти"
+                    Click="save_Btn_Click"/>
+            <Button x:Name="exit_Btn" Content="Вийти"
+                    Click="exit_Btn_Click"/>
         </StackPanel>
     </Grid>
 </Window>

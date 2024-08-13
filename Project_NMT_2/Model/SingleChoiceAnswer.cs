@@ -23,5 +23,6 @@ namespace Project_NMT_2.Model
             answerTrueOrFalse = _answerTorF;
             id_question = _id_question;
         }
+        public SingleChoiceAnswer() { }
     }
 }

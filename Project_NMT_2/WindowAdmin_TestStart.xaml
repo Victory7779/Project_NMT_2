@@ -9,6 +9,31 @@
     <Window.Resources>
         <ObjectDataProvider x:Key="ServiceDB" ObjectType="{x:Type local:ServiceDB}"/>
         <ObjectDataProvider x:Key="SchoolSubjects" ObjectInstance="{StaticResource ResourceKey=ServiceDB}" MethodName="GetSchoolSubjects"/>
+        <Style x:Key="PurpleStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Purple"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="Purple"/>
+            <Setter Property="Background" Value="Bisque"/>
+            <!--Наклон-->
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <SkewTransform AngleX="15"/>
+                </Setter.Value>
+            </Setter>
+            <!--Тень-->
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="MediumPurple"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid>
@@ -75,12 +100,13 @@
         </Grid>
         <!--Общая кнопка для выхода с программы -->
         <Button x:Name="exit_Btn"
-         Height="30"
-         Width="50"
-         VerticalAlignment="Bottom"
-         HorizontalAlignment="Right"
-         Margin="0 0 10 10"
-         Click="exit_Btn_Click">
+                 Height="30"
+                 Width="50"
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 10 10"
+                 Style="{StaticResource PurpleStyle}"
+                 Click="exit_Btn_Click">
             <TextBlock Text="Вийти"
                 FontWeight="Heavy"/>
         </Button>

@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddElementForQuestion\CheckBx.cs" />
+    <Compile Include="AddElementForQuestion\RadioBtn.cs" />
+    <Compile Include="AddElementForQuestion\TextBx.cs" />
     <Compile Include="ServiceDB.cs" />
     <Compile Include="WindowAdmin_TestStart.xaml.cs">
       <DependentUpon>WindowAdmin_TestStart.xaml</DependentUpon>

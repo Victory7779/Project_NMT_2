@@ -5,69 +5,132 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_NMT_2"
         mc:Ignorable="d"
-        Title="Загальна інформація про тест" Height="450" Width="800">
+        Title="Загальна інформація про тест" 
+        Height="450" 
+        Width="800"
+        Background="AntiqueWhite">
+    
     <Window.Resources>
         <ObjectDataProvider x:Key="ServiceDB" ObjectType="{x:Type local:ServiceDB}"/>
         <ObjectDataProvider x:Key="SchoolSubjects" ObjectInstance="{StaticResource ResourceKey=ServiceDB}" MethodName="GetSchoolSubjects"/>
+        <!--Button-->
+        <Style x:Key="PurpleStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Purple"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="Purple"/>
+            <Setter Property="Background" Value="Bisque"/>
+            <!--Наклон-->
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                     <SkewTransform AngleX="15"/>
+                </Setter.Value>
+            </Setter>
+                <!--Тень-->
+            <Setter Property="Effect">
+                <Setter.Value>
+                     <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="MediumPurple"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Button-->
+        <Style TargetType="Button">
+             <Setter Property="FontFamily" Value="Segoe UI"/>
+             <Setter Property="FontSize" Value="14"/>    
+                    <!--Наклон-->
+             <Setter Property="RenderTransform">
+                 <Setter.Value>
+                     <SkewTransform AngleX="15"/>
+                 </Setter.Value>
+             </Setter>
+                <!--Тень-->
+             <Setter Property="Effect">
+                 <Setter.Value>
+                     <DropShadowEffect />
+                 </Setter.Value>
+             </Setter>
+             <Setter Property="BorderBrush" Value="Green"/>
+             <Setter Property="BorderThickness" Value="2"/>
+             <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="Background" Value="Bisque"/>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="GreenYellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+                <!--Star - TextBloc-->
+        <Style x:Key="Star" TargetType="TextBlock">
+             <Setter Property="Foreground" Value="Red"/>
+             <Setter Property="FontWeight" Value="Heavy"/>
+             <Setter Property="FontSize" Value="25"/>
+             <Setter Property="Width" Value="20"/>
+        </Style>
+            <!--TextBlock-->
+        <Style x:Key="NameLine" TargetType="TextBlock">
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Text" Value="12345"/>
+        </Style>
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontWeight" Value="Heavy">
+            </Setter>
+        </Style>
     </Window.Resources>
+    
     <Grid>
         <StackPanel Orientation="Vertical">
+            
             <StackPanel Orientation="Horizontal">
                 <!--Title-->
                 <TextBlock Text="*" 
-                   FontWeight="Heavy" 
-                   Foreground="#FFAE1919" 
-                   FontSize="25"
-                   Margin="10 5 10 10 "
-                   Width="20"/>
+                           Style="{StaticResource Star}"
+                           Margin="10 5 10 10 "/>
+                <TextBlock Text="Назва теста"
+                            Style="{StaticResource NameLine}"
+                           Margin="0 10 5 0"/>
                 <TextBox x:Name="titleTest_TestBox"
-                 Width="700"
-                 Height="40"
-                 Text="Назва теста"
-                 FontSize="25" 
-                 FontStyle="Italic"
-                 BorderBrush="Black"
-                 BorderThickness="2"/>
+                         Width="600"/>      
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <!--Выбор предмета-->
                 <TextBlock Text="*" 
-                    FontWeight="Heavy" 
-                    Foreground="#FFAE1919" 
-                    FontSize="25"
-                    Margin="10 5 5 10 "
-                    Width="20"/>
+                           Style="{StaticResource Star}"
+                           Margin="10 5 5 10 "/>
                 <ComboBox x:Name="subjectForTest_ComboBox"  
                           ItemsSource="{Binding Source={StaticResource SchoolSubjects}}"
                            Width="300"
                           Height="35"/>
                 <!--Время-->
                 <TextBlock Text="*" 
-                    FontWeight="Heavy" 
-                    Foreground="#FFAE1919" 
-                    FontSize="25"
-                    Margin="50 5 5 10 "
-                    Width="20"/>
+                            Style="{StaticResource Star}"
+                            Margin="50 5 5 10 "
+                            Width="20"/>
                 <TextBlock Text="Час"
-                           FontSize="25" 
-                           FontWeight="DemiBold"
                            VerticalAlignment="Center"
+                           Style="{StaticResource NameLine}"
                            Margin="5"/>
                 <TextBox x:Name="timeTest_TestBox"
-                         Width="100"
-                         Height="40"
-                         Text=""
-                         FontSize="30" 
-                         FontStyle="Italic"
-                         BorderBrush="Black"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Center"
-                         BorderThickness="2"/>
+                         Width="70"
+                         />
                 <TextBlock Text="хв"
                            Margin="5 0 0 0"
-                           VerticalAlignment="Bottom"
-                           FontSize="20"
-                           FontWeight="Bold"/>
+                           VerticalAlignment="Center"
+                           Style="{StaticResource NameLine}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <!--Список вопросов теста-->
@@ -92,6 +155,7 @@
                             Height="50"
                             Margin="20 20 10 10"
                             HorizontalAlignment="Left"
+                            Style="{StaticResource PurpleStyle}"
                             Click="addQuestion_Btn_Click">
                         <TextBlock Text="Додати"
                                    FontSize="20"
@@ -122,6 +186,7 @@
                             Height="50"
                             Margin="0 10 20 10"
                             HorizontalAlignment="Right"
+                            Style="{StaticResource PurpleStyle}"
                             Click="exit_Btn_Click">
                         <TextBlock Text="Вийти"
                                    FontSize="20"

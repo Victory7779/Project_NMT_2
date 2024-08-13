@@ -76,31 +76,35 @@ namespace Project_NMT_2
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e) //WORK!!!!
         {
-
-            //Окно сообщения
-            //-------------------------------------------------
-            string messageBoxText = "Ви впевнені?";
-            string caption = "Видалення теста";
-            MessageBoxButton button = MessageBoxButton.YesNoCancel;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result;
-
-            result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-            //-------------------------------------------------
-            if(result==MessageBoxResult.Yes)
+            if (test_ListView.SelectedItem != null)
             {
-                try
+                //Окно сообщения
+                //-------------------------------------------------
+                string messageBoxText = "Ви впевнені?";
+                string caption = "Видалення теста";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result;
+
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                //-------------------------------------------------
+                if (result == MessageBoxResult.Yes)
                 {
-                    ServiceDB.DeleteALLTest((test_ListView.SelectedItem as ALLTest).id);
-                    aLLTest.Remove(test_ListView.SelectedItem as ALLTest);
-                    test_ListView.Items.Refresh();
-                    MessageBox.Show("Тест видалений!");
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+                    try
+                    {
+                        ServiceDB.DeleteALLTest((test_ListView.SelectedItem as ALLTest).id);
+                        aLLTest.Remove(test_ListView.SelectedItem as ALLTest);
+                        test_ListView.Items.Refresh();
+                        MessageBox.Show("Тест видалений!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
+            else MessageBox.Show("Не вибрали тест!");
+           
         }
 
         private void exit_Btn_Click(object sender, RoutedEventArgs e)// Work

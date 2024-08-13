@@ -19,8 +19,9 @@ using System.Windows.Shapes;
 namespace Project_NMT_2
 {
     ///Patern Command
+    /////________________________________________
     ///Command - interface
-    ///
+    ///______________________________________________
     public interface ITest
     {
         void Execute();
@@ -71,7 +72,7 @@ namespace Project_NMT_2
             //this._receiver.QuestionsPrint(_questions);
         }
     }
-    //Command - for save information in class ALLTest
+    //Command - for save information in class ALLTest ////WORK///
     class AddInfTest : ITest
     {
         private Receiver _receiver;
@@ -111,7 +112,7 @@ namespace Project_NMT_2
                // this._receiver.CountQAddClassALLTests(_questions);
             }
         }
-    }
+    }  
     //Command - for save information if test was saved
     class UpdateInfoTest : ITest
     {
@@ -151,7 +152,7 @@ namespace Project_NMT_2
                 }
         }
     }
-    //Command - for save new test
+    //Command - for save new test ///WORK///
     class SaveInfoTest : ITest
     {
         private Receiver _receiver;
@@ -185,6 +186,7 @@ namespace Project_NMT_2
 
 
     //Receiver - получатель, содержить информацию и действия обработки информации
+    //________________________________________________________________________
     public class Receiver
     {
         private WindowCreateOrUpdateTest window;
@@ -384,6 +386,7 @@ namespace Project_NMT_2
     }
 
     //Inviker - отправитель, содержит поочередность вызова команд
+    //____________________________________________________________--
     public class Invoker
     {
         private ITest _onStart;
@@ -426,14 +429,17 @@ namespace Project_NMT_2
     {
         //WINDOW
         //Window - Menu questions
+        //________________________________________________
         protected WindowMenuCreateTest _menuCreateTest;
         // Window Admin Test
+        //______________________________________________________
         public WindowAdmin_TestStart _windowAdmin_TestStart;
         private WindowAdmin_TestStart windowAdmin_Test;
 
         public List<QuestionsForTest> questions { get; set; } = new List<QuestionsForTest>();
         public ALLTest test { get; set; } = new ALLTest();
         //Work with test
+        //____________________________________________
         private Invoker _workWithTest { get; set; } = new Invoker();
         private Receiver _receiver { get; set; }
 
@@ -463,19 +469,22 @@ namespace Project_NMT_2
             }
         }
 
-        /// <summary>
+
         ///Button -  ADD Questions
-        /// </summary>
-        private void addQuestion_Btn_Click(object sender, RoutedEventArgs e)
+        /// _____________________________________________________________
+        private void addQuestion_Btn_Click(object sender, RoutedEventArgs e)//WORK//
         {
             try
             {
-                if (_menuCreateTest == null)
+                if (_menuCreateTest == null || PresentationSource.FromVisual(_menuCreateTest)==null)
                 {
-                    _menuCreateTest = new WindowMenuCreateTest();
+                    _menuCreateTest = new WindowMenuCreateTest(this);
                     _menuCreateTest.Show();
                 }
-                else _menuCreateTest.Activate();
+                else 
+                {
+                    _menuCreateTest.Activate();
+                }
             }
             catch(Exception ex)
             {

@@ -19,7 +19,7 @@ namespace Project_NMT_2
     /// </summary>
     public partial class WindowMarginOptions : Window
     {
-        public WindowMarginOptions()
+        public WindowMarginOptions(Window window)
         {
             InitializeComponent();
         }

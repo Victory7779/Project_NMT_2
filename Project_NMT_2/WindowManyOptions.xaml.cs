@@ -19,7 +19,7 @@ namespace Project_NMT_2
     /// </summary>
     public partial class WindowManyOptions : Window
     {
-        public WindowManyOptions()
+        public WindowManyOptions(Window window)
         {
             InitializeComponent();
         }
