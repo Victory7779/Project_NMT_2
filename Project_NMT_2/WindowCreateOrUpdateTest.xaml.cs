@@ -157,12 +157,20 @@ namespace Project_NMT_2
     {
         private Receiver _receiver;
         private List<QuestionsForTest> _questions;
+        private List<SingleChoiceAnswer> _singles;
+        private List<MultipleChoiceAnswer> _multiples;
+        private List<OpenAnswer> _opens;
+        private List<MachingAnswer> _machings;
         private ALLTest _test;
-        public SaveInfoTest(Receiver receiver, List<QuestionsForTest> questions, ALLTest test)
+        public SaveInfoTest(Receiver receiver, List<QuestionsForTest> questions, ALLTest test, List<SingleChoiceAnswer> singles, List<MultipleChoiceAnswer> multiples, List<OpenAnswer> opens, List<MachingAnswer> machings)
         {
             _receiver = receiver;
             _questions = questions;
             _test = test;
+            _singles = singles;
+            _multiples = multiples;
+            _opens = opens;
+            _machings = machings;
         }
 
         public void Execute()
@@ -172,7 +180,7 @@ namespace Project_NMT_2
                 _receiver.TestSaveInDB(_test);
                 if (_questions != null)
                 {
-                    _receiver.QuestionsSaveinDB(_questions);
+                    _receiver.QuestionsSaveinDB(_questions, _singles, _multiples, _opens, _machings);
                     MessageBox.Show("Тест успішно збережено!");
                 }
                 else MessageBox.Show("Тест збережено без питань!");
@@ -353,28 +361,30 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-        public void QuestionsSaveinDB(List<QuestionsForTest> questions)
+        public void QuestionsSaveinDB(List<QuestionsForTest> questions,
+            List<SingleChoiceAnswer> singles, List<MultipleChoiceAnswer> multiples,
+            List<OpenAnswer> opens, List<MachingAnswer> machings)
         {
             try
             {
                 ServiceDB.AddQuestions(questions);
                 foreach (var question in questions)
                 {
-                    if (question.SingleChoiceAnswers!=null)
+                    if (singles!=null)
                     {
-                        ServiceDB.AddSingleChoiceAnswers(question.SingleChoiceAnswers);
+                        ServiceDB.AddSingleChoiceAnswers(singles);
                     }
-                    else if(question.MultipleChoiceAnswers!=null)
+                    else if(multiples!=null)
                     {
-                        ServiceDB.AddMultipleChoiceAnswer(question.MultipleChoiceAnswers);
+                        ServiceDB.AddMultipleChoiceAnswer(multiples);
                     }
-                    else if (question.MachingAnswers!=null)
+                    else if (machings!=null)
                     {
-                        ServiceDB.AddMachingAnswer(question.MachingAnswers);
+                        ServiceDB.AddMachingAnswer(machings);
                     }
-                    else if(question.OpenAnswers!=null)
+                    else if(opens!=null)
                     {
-                        ServiceDB.AddOpenAnswer(question.OpenAnswers);
+                        ServiceDB.AddOpenAnswer(opens);
                     }
                 }
             }
@@ -437,12 +447,19 @@ namespace Project_NMT_2
         private WindowAdmin_TestStart windowAdmin_Test;
 
         public List<QuestionsForTest> questions { get; set; } = new List<QuestionsForTest>();
+        public List<SingleChoiceAnswer> singleChoiceAnswers { get; set; } = new List<SingleChoiceAnswer>();
+        public List<MultipleChoiceAnswer> multipleChoiceAnswers { get; set; } = new List<MultipleChoiceAnswer>();
+        public List<OpenAnswer> openAnswers { get; set; } = new List<OpenAnswer>();
+        public List<MachingAnswer> machingAnswers { get; set; } = new List<MachingAnswer>();
         public ALLTest test { get; set; } = new ALLTest();
         //Work with test
         //____________________________________________
         private Invoker _workWithTest { get; set; } = new Invoker();
         private Receiver _receiver { get; set; }
 
+
+        //Main
+        //___________________________________________________________________
         public WindowCreateOrUpdateTest(WindowAdmin_TestStart admin_TestStart)
         {
             _receiver = new Receiver(this);
@@ -468,7 +485,24 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-
+        public void InitializeListQuestions()
+        {
+            try
+            {
+                if (questions!=null && questions.Count==1)
+                {
+                    question_ListView.ItemsSource = questions;
+                }
+                if (questions!=null && questions.Count>1)
+                {
+                    question_ListView.Items.Refresh();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         ///Button -  ADD Questions
         /// _____________________________________________________________
@@ -507,8 +541,14 @@ namespace Project_NMT_2
             try
             {
                 _workWithTest.SetOnStart(new AddInfTest(_receiver, titleTest_TestBox.Text, int.Parse(timeTest_TestBox.Text), subjectForTest_ComboBox.SelectedItem.ToString(), questions));
-                _workWithTest.SetOnFinish(new SaveInfoTest(_receiver, questions, test));
+                _workWithTest.SetOnFinish(new SaveInfoTest(_receiver, questions, test, singleChoiceAnswers, multipleChoiceAnswers, openAnswers, machingAnswers));
                 _workWithTest.WorkWithTest();
+                if (windowAdmin_Test == null)
+                {
+                    windowAdmin_Test = new WindowAdmin_TestStart();
+                    windowAdmin_Test.Show();
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {

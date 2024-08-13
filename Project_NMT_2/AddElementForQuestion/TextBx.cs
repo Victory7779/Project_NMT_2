@@ -14,9 +14,9 @@ namespace Project_NMT_2.AddElementForQuestion
         private static TextBx textBx;
         public StackPanel stackPanel { get; set; } = new StackPanel();
         private static readonly object _lock = new object();
-        public static TextBx GetCheckBox(StackPanel stack)
+        public static TextBx GetTextBox(StackPanel stack)
         {
-            if (stack.Children.Count <= 5 || stack.Children == null)
+            if (stack.Children.Count <= 1 || stack.Children == null)
             {
                 lock (_lock)
                 {

@@ -138,13 +138,16 @@
                           Width="500" 
                           Height="300"
                           Margin="40 15 5 10"
-                          HorizontalAlignment="Center">
+                          HorizontalAlignment="Center"
+                          ItemsSource="{Binding questions}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="№"
-                                            Width="20"/>
+                                            Width="20"
+                                            DisplayMemberBinding="{Binding id}"/>
                             <GridViewColumn Header="Питання"
-                                            Width="480"/>
+                                            Width="480"
+                                            DisplayMemberBinding="{Binding question}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

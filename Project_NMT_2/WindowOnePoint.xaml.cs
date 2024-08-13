@@ -34,6 +34,9 @@ namespace Project_NMT_2
             InitializeElement();
         }
 
+
+        //Initialize
+        //__________________________________________________
         private void InitializeElement()
         {
             if (commands=="One")
@@ -46,7 +49,7 @@ namespace Project_NMT_2
             }
             if (commands=="Open")
             {
-
+                InitializeTextBox();
             }
             if (commands=="Comb")
             {
@@ -68,7 +71,6 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void InitializeCheckBox()
         {
             try
@@ -83,10 +85,20 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-
+        private void InitializeTextBox()
+        {
+            try
+            {
+                answer_StackPanel.Children.Add(TextBx.GetTextBox(answer_StackPanel).stackPanel);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         //ADD new element
-
+        //_____________________________________________--
         private void AddOneOption()
         {
             try
@@ -111,13 +123,142 @@ namespace Project_NMT_2
         }
         private void AddOpenOption()
         {
-
+            try
+            {
+                answer_StackPanel.Children.Add(TextBx.GetTextBox(answer_StackPanel).stackPanel);
+            }
+            catch
+            {
+                MessageBox.Show("Максимальна кількість варіантів = 2!");
+            }
         }
         private void AddMachingOption()
         {
 
         }
 
+
+        //Save
+        //___________________________________________________
+        private void SaveOneOption()
+        {
+            try
+            {
+                var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                var answers = answer_StackPanel.Children.OfType<StackPanel>();
+                bool result = false;
+                foreach (var answer in answers)
+                {
+                    var radioBtn = answer.Children.OfType<RadioButton>().FirstOrDefault();
+                    if (radioBtn.IsChecked==true)
+                    {
+                        result = true;
+                    }
+
+                }
+                if (result)
+                {
+                    foreach (var answer in answers)
+                    {
+                        var textBox = answer.Children.OfType<TextBox>().FirstOrDefault();
+                        var radioBtn = answer.Children.OfType<RadioButton>().FirstOrDefault();
+                        if (textBox != null && radioBtn != null)
+                        {
+                            windowCreateOrUpdateTest.singleChoiceAnswers.Add(new SingleChoiceAnswer(textBox.Text, radioBtn.IsChecked.Value, question.id));
+                        }
+                    }
+                    windowCreateOrUpdateTest.questions.Add(question);
+                    this.Close();
+                }
+                else MessageBox.Show("Виберіть правильну відповідь");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void SaveManyOptions()
+        {
+            try
+            {
+                var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                var answers = answer_StackPanel.Children.OfType<StackPanel>();
+                bool result = false;
+                foreach (var answer in answers)
+                {
+                    var checkBtn = answer.Children.OfType<CheckBox>().FirstOrDefault();
+                    if (checkBtn.IsChecked == true)
+                    {
+                        result = true;
+                        return;
+                    }
+
+                }
+                if (result)
+                {
+                    foreach (var answer in answers)
+                    {
+                        var textBox = answer.Children.OfType<TextBox>().FirstOrDefault();
+                        var checkBtn = answer.Children.OfType<CheckBox>().FirstOrDefault();
+                        if (textBox != null && checkBtn != null)
+                        {
+                            windowCreateOrUpdateTest.multipleChoiceAnswers.Add(new MultipleChoiceAnswer(textBox.Text, checkBtn.IsChecked.Value, question.id));
+                        }
+                    }
+                    windowCreateOrUpdateTest.questions.Add(question);
+                    this.Close();
+                }
+                else MessageBox.Show("Виберіть правильну відповідь");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void SaveOpenOption()
+        {
+            try
+            {
+                var checkTextStack = answer_StackPanel.Children.OfType<StackPanel>().FirstOrDefault();
+                var checkText = checkTextStack.Children.OfType<TextBox>().FirstOrDefault().Text;
+                bool result = false;
+                if (checkText!=null && checkText!="" && checkText!=" ")
+                {
+                    result = true;
+                    return;
+                }
+
+                if(result)
+                {
+                    var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                    var answers = answer_StackPanel.Children.OfType<StackPanel>();
+                    string answer1 = null, answer2 = null;
+
+                    foreach (var answer in answers)
+                    {
+                        var textBox = answer.Children.OfType<TextBox>().FirstOrDefault();
+                        if (textBox != null && answer1 == null)
+                        {
+                            answer1 = textBox.Text;
+                        }
+                        else if (textBox != null && answer2 == null)
+                        {
+                            answer2 = textBox.Text;
+                        }
+                    }
+                    windowCreateOrUpdateTest.openAnswers.Add(new OpenAnswer(answer1, answer2, question.id));
+                    windowCreateOrUpdateTest.questions.Add(question);
+                    this.Close();
+                }
+                else MessageBox.Show("Введіть першу правильну відповідь");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        //Button
+        //__________________________________________________
         private void addOneOption_Btn_Click(object sender, RoutedEventArgs e)
         {
             if (commands == "One")
@@ -141,25 +282,25 @@ namespace Project_NMT_2
 
         private  void save_Btn_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (commands == "One")
             {
-               var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
-                var answers = answer_StackPanel.Children.OfType<StackPanel>();
-                foreach (var answer in answers)
-                {
-                    var textBox = answer.Children.OfType<TextBox>().FirstOrDefault();
-                    var radioBtn = answer.Children.OfType<RadioButton>().FirstOrDefault();
-                    if (textBox!=null && radioBtn!=null)
-                    {
-                        question.SingleChoiceAnswers.Add(new SingleChoiceAnswer(textBox.Text, radioBtn.IsChecked.Value, question.id));
-                    }
-                }
-                windowCreateOrUpdateTest.questions.Add(question);
+                SaveOneOption();
             }
-            catch (Exception ex)
+            if (commands == "Many")
             {
-                MessageBox.Show(ex.Message);
+                SaveManyOptions();
+                this.Close();
             }
+            if (commands == "Open")
+            {
+                SaveOpenOption();
+                this.Close();
+            }
+            if (commands == "Comb")
+            {
+                this.Close();
+            }
+            windowCreateOrUpdateTest.InitializeListQuestions();
         }
 
         private void exit_Btn_Click(object sender, RoutedEventArgs e)// WORK//
