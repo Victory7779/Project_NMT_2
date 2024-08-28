@@ -37,10 +37,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <!--TextBox-->
         <Style x:Key="Question" TargetType="TextBox">
-            
+
         </Style>
     </Window.Resources>
     <Grid>
@@ -61,41 +61,36 @@
                  Padding="5 5 0 0"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  TextWrapping="Wrap"/>
-        <StackPanel Grid.Row="1">
-            <!--Обозначения  вопросов и ответов-->
-            <StackPanel x:Name="answer_StackPanel"
-                        Orientation="Vertical"
-                        Width="650"
-                        HorizontalAlignment="Left"
-                        Margin="90 0 0 0">
-                <!--<StackPanel x:Name="radioBt_StackPanel_1"
-                            Orientation="Horizontal" 
-                            VerticalAlignment="Center"
-                            Margin="0 0 0 10">
-                    <RadioButton GroupName="Choice" Margin="0 0 10 0"/>
-                    <TextBox TextWrapping="Wrap"
-                             Width="600"
-                             Height="20"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" 
-                            VerticalAlignment="Center"
-                            Margin="0 0 0 10">
-                    <RadioButton GroupName="Choice" Margin="0 0 10 0"/>
-                    <TextBox TextWrapping="Wrap"
-                             Width="600"
-                             Height="20"/>
-                </StackPanel>-->
+        
+        
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="90 0 0 0">
+                <!--Обозначения  вопросов и ответов !!!Не трогать!!!-->
+                <StackPanel x:Name="answer_StackPanel"
+                            Orientation="Vertical" >
 
+                </StackPanel>
+                <Button x:Name="addOneOption_Btn"
+                         Height="20"
+                         Width="20"
+                         Margin="0 10 0 0"
+                         BorderThickness="0"
+                         HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                         Click="addOneOption_Btn_Click"
+                         >
+                    <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/Plus.png"/>
+                </Button>
             </StackPanel>
-            <Button x:Name="addOneOption_Btn"
-                    Height="20"
-                    Width="20"
-                    Margin="90 10 0 0"
-                    BorderThickness="0"
-                    HorizontalAlignment="Left"
-                    Click="addOneOption_Btn_Click">
-                <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/Plus.png"/>
-            </Button>
+            
+            
+            <StackPanel x:Name="option_StackPanel"
+                           Orientation="Vertical"
+                           Margin="30 0 0 0">
+            </StackPanel>
+
+
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"

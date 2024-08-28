@@ -295,18 +295,17 @@ namespace Project_NMT_2
         ///Answer SingleChoiceAnswer
         ///
         //Добавление список ответов
-        public static void AddSingleChoiceAnswers(IEnumerable<SingleChoiceAnswer> answers)
+        public static void AddSingleChoiceAnswers(SingleChoiceAnswer answer)
         {
             using (var db = new SqlConnection(connectionString))
             {
+                int answerR=0;
+                if (answer.answerTrueOrFalse == true) { answerR = 1; }
                 db.Open();
-                foreach (var answer in answers)
-                {
-                    string sql = $"" +
+                string sql = $"" +
                     $"INSERT SingleChoiceAnswers (textAnswer, answerTrueOrFalse, id_question) " +
-                    $"VALUES ('{answer.textAnswer}', {answer.answerTrueOrFalse}, {answer.id_question})";
-                    db.Execute(sql);
-                }
+                    $"VALUES ('{answer.textAnswer}', {answerR}, {answer.id_question})";
+                db.Execute(sql);
                 db.Close();
             }
         }
@@ -314,18 +313,17 @@ namespace Project_NMT_2
         ///Answer MultipleChoiceAnswer
         ///
         //Добавление список ответов
-        public static void AddMultipleChoiceAnswer(IEnumerable<MultipleChoiceAnswer> answers)
+        public static void AddMultipleChoiceAnswer(MultipleChoiceAnswer answer)
         {
             using (var db = new SqlConnection(connectionString))
             {
+                int answerR = 0;
+                if (answer.answerTrueOrFalse == true) { answerR = 1; }
                 db.Open();
-                foreach (var answer in answers)
-                {
-                    string sql = $"" +
-                    $"INSERT MultipleChoiceAnswers (textAnswer, answerTrueOrFalse, id_question) " +
-                    $"VALUES ('{answer.textAnswer}', {answer.answerTrueOrFalse}, {answer.id_question})";
-                    db.Execute(sql);
-                }
+                string sql = $"" +
+                   $"INSERT MultipleChoiceAnswers (textAnswer, answerTrueOrFalse, id_question) " +
+                   $"VALUES ('{answer.textAnswer}', {answerR}, {answer.id_question})";
+                db.Execute(sql);
                 db.Close();
             }
         }
@@ -333,18 +331,15 @@ namespace Project_NMT_2
         ///Answer OpenAnswer
         ///
         //Добавление список ответов
-        public static void AddOpenAnswer(IEnumerable<OpenAnswer> answers)
+        public static void AddOpenAnswer(OpenAnswer answer)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 db.Open();
-                foreach (var answer in answers)
-                {
-                    string sql = $"" +
+                string sql = $"" +
                     $"INSERT OpenAnswers (textAnswerOne, textAnswerTwo, id_question) " +
                     $"VALUES ('{answer.textAnswerOne}', '{answer.textAnswerTwo}', {answer.id_question})";
-                    db.Execute(sql);
-                }
+                db.Execute(sql);
                 db.Close();
             }
         }
@@ -352,18 +347,15 @@ namespace Project_NMT_2
         ///Answer MachingAnswer
         ///
         //Добавление список ответов
-        public static void AddMachingAnswer(IEnumerable<MachingAnswer> answers)
+        public static void AddMachingAnswer(MachingAnswer answer)
         {
             using (var db = new SqlConnection(connectionString))
             {
                 db.Open();
-                foreach (var answer in answers)
-                {
-                    string sql = $"" +
+                string sql = $"" +
                     $"INSERT MachingAnswers (textAnswer, answerTrueOrFalse, id_question) " +
                     $"VALUES ('{answer.textAnswer}', '{answer.answerTrueOrFalse}', {answer.id_question})";
-                    db.Execute(sql);
-                }
+                db.Execute(sql);
                 db.Close();
             }
         }

@@ -86,7 +86,7 @@
                             <ListView x:Name="test_ListView" Margin="50 10 10 10" Width="600" Height="300" ItemsSource="{Binding allTest}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                        <GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding id}"/>
                                         <GridViewColumn Header="Назва" Width="470" DisplayMemberBinding="{Binding Title}"/>
                                         <GridViewColumn Header="К-ть питань" Width="50" DisplayMemberBinding="{Binding CountQ}"/>
                                         <GridViewColumn Header="Час" Width="50" DisplayMemberBinding="{Binding Time}"/>

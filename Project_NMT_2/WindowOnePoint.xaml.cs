@@ -2,6 +2,7 @@
 using Project_NMT_2.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -23,15 +24,14 @@ namespace Project_NMT_2
     {
         private WindowCreateOrUpdateTest windowCreateOrUpdateTest;
         private string commands;
-        private int idQuestion { get; set; }
-        
+
         public WindowOnePoint(Window window1, string command)
         {
             windowCreateOrUpdateTest = window1 as WindowCreateOrUpdateTest;
             commands = command;
-            idQuestion = ServiceDB.LastQuestion().id;
             InitializeComponent();
             InitializeElement();
+
         }
 
 
@@ -53,7 +53,7 @@ namespace Project_NMT_2
             }
             if (commands=="Comb")
             {
-
+                InitializeMaching();
             }
         }
 
@@ -96,6 +96,23 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
+        private void InitializeMaching()
+        {
+            try
+            {
+                for (int i = 0; i <2 ; i++)
+                {
+                    option_StackPanel.Children.Add(MachingDataGrid.GetMachingDataGrid(option_StackPanel).stackPanel);
+                }
+                answer_StackPanel.Children.Add(MachingDataGrid.GetMachingDataGrid(answer_StackPanel).stackPanel);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
+        }
 
         //ADD new element
         //_____________________________________________--
@@ -134,7 +151,15 @@ namespace Project_NMT_2
         }
         private void AddMachingOption()
         {
-
+            try
+            {
+                answer_StackPanel.Children.Add(MachingDataGrid.GetMachingDataGrid(answer_StackPanel).stackPanel);
+                option_StackPanel.Children.Add(MachingDataGrid.GetMachingDataGrid(option_StackPanel).stackPanel);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Максимальна кількість варіантів!");
+            }
         }
 
 
@@ -144,7 +169,7 @@ namespace Project_NMT_2
         {
             try
             {
-                var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                var question = new Model.QuestionsForTest() { id = windowCreateOrUpdateTest.idQuestion, question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
                 var answers = answer_StackPanel.Children.OfType<StackPanel>();
                 bool result = false;
                 foreach (var answer in answers)
@@ -172,16 +197,16 @@ namespace Project_NMT_2
                 }
                 else MessageBox.Show("Виберіть правильну відповідь");
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Помилка при збережені.\n Спробуйте зберегти знову, виправивши помилку!");
             }
         }
         private void SaveManyOptions()
         {
             try
             {
-                var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                var question = new Model.QuestionsForTest() { id = windowCreateOrUpdateTest.idQuestion, question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
                 var answers = answer_StackPanel.Children.OfType<StackPanel>();
                 bool result = false;
                 foreach (var answer in answers)
@@ -190,7 +215,6 @@ namespace Project_NMT_2
                     if (checkBtn.IsChecked == true)
                     {
                         result = true;
-                        return;
                     }
 
                 }
@@ -212,7 +236,7 @@ namespace Project_NMT_2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Помилка при збережені.\n Спробуйте зберегти знову, виправивши помилку!");
             }
         }
         private void SaveOpenOption()
@@ -225,12 +249,11 @@ namespace Project_NMT_2
                 if (checkText!=null && checkText!="" && checkText!=" ")
                 {
                     result = true;
-                    return;
                 }
 
                 if(result)
                 {
-                    var question = new Model.QuestionsForTest() { id = (idQuestion + 1), question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                    var question = new Model.QuestionsForTest() { id = windowCreateOrUpdateTest.idQuestion, question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
                     var answers = answer_StackPanel.Children.OfType<StackPanel>();
                     string answer1 = null, answer2 = null;
 
@@ -254,7 +277,37 @@ namespace Project_NMT_2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Помилка при збережені.\n Спробуйте зберегти знову, виправивши помилку!");
+            }
+        }
+
+        private void SaveMaching()
+        {
+            try
+            {
+                var question = new Model.QuestionsForTest() { id = windowCreateOrUpdateTest.idQuestion, question = question_TextBox.Text, id_test = windowCreateOrUpdateTest.test.id };
+                var answersNumber = answer_StackPanel.Children.OfType<StackPanel>();
+                var answerLetter = option_StackPanel.Children.OfType<StackPanel>();
+                int count = option_StackPanel.Children.Count;
+                if (answersNumber!=null && answerLetter!=null)
+                {
+                    int index = 0;
+                    foreach (var aLetter in answerLetter)
+                    {
+                        windowCreateOrUpdateTest.machingAnswers.Add(new MachingAnswer(null, aLetter.Children.OfType<TextBox>().First().Text, question.id));
+                    }
+                    foreach (var aNumber in answersNumber)
+                    {
+                        windowCreateOrUpdateTest.machingAnswers.ElementAt(index).textAnswer = aNumber.Children.OfType<TextBox>().First().Text;
+                        index++;
+                    }
+                }
+                windowCreateOrUpdateTest.questions.Add(question);
+                this.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Помилка при збережені.\n Спробуйте зберегти знову, виправивши помилку!");
             }
         }
         //Button
@@ -277,7 +330,6 @@ namespace Project_NMT_2
             {
                 AddMachingOption();
             }
-
         }
 
         private  void save_Btn_Click(object sender, RoutedEventArgs e)
@@ -289,17 +341,16 @@ namespace Project_NMT_2
             if (commands == "Many")
             {
                 SaveManyOptions();
-                this.Close();
             }
             if (commands == "Open")
             {
                 SaveOpenOption();
-                this.Close();
             }
             if (commands == "Comb")
             {
-                this.Close();
+                SaveMaching();
             }
+           // MessageBox.Show($"{windowCreateOrUpdateTest.questions.Count}");
             windowCreateOrUpdateTest.InitializeListQuestions();
         }
 

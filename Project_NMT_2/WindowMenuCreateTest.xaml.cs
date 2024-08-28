@@ -53,55 +53,16 @@ namespace Project_NMT_2
 
         private void manyOptions_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    if (windowManyOptions == null)
-            //    {
-            //        windowManyOptions = new WindowManyOptions(windowCreateOrUpdateTest);
-            //        windowManyOptions.Show();
-            //        this.Close();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
             CreateQuestion("Many");
         }
 
         private void openOption_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    if (windowOpenOption == null)
-            //    {
-            //        windowOpenOption = new WindowOpenOption(windowCreateOrUpdateTest);
-            //        windowOpenOption.Show();
-            //        this.Close();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
             CreateQuestion("Open");
         }
 
         private void conformityOption_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    if (windowMarginOptions == null)
-            //    {
-            //        windowMarginOptions = new WindowMarginOptions(windowCreateOrUpdateTest);
-            //        windowMarginOptions.Show();
-            //        this.Close();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
             CreateQuestion("Comb");
         }
 

@@ -1,20 +1,7 @@
 ﻿using Project_NMT_2.Model;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Json;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Project_NMT_2
 {
@@ -27,27 +14,6 @@ namespace Project_NMT_2
         void Execute();
     }
     //Commands - real
-    //Command - creat Id
-    class CreateIDtest : ITest
-    {
-        private Receiver _receiver;
-        public CreateIDtest(Receiver receiver)
-        {
-            _receiver = receiver;
-        }
-
-        public void Execute()
-        {
-            try
-            {
-                _receiver.IdAddClassALLTests();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-    }
     //Command - for print information about test into Window
     class PrintInfTest : ITest
     {
@@ -80,18 +46,19 @@ namespace Project_NMT_2
         private int _time;
         private string _subject;
         private List<QuestionsForTest> _questions;
-        public AddInfTest(Receiver receiver, string title, int time, string subject, List<QuestionsForTest> questions)
+        private ALLTest _aLLTest;
+        public AddInfTest(Receiver receiver, string title, int time, string subject, List<QuestionsForTest> questions, ALLTest aLLTest)
         {
             _receiver = receiver;
             _title = title;
             _time = time;
             _subject = subject;
             _questions = questions;
+            _aLLTest = aLLTest;
         }
 
         public void Execute()
         {
-            this._receiver.IdAddClassALLTests();
             if (_title != null && _title != "" && _title != " ")
             {
                 this._receiver.TitleAddClassALLTests(_title);
@@ -180,8 +147,15 @@ namespace Project_NMT_2
                 _receiver.TestSaveInDB(_test);
                 if (_questions != null)
                 {
-                    _receiver.QuestionsSaveinDB(_questions, _singles, _multiples, _opens, _machings);
-                    MessageBox.Show("Тест успішно збережено!");
+                    try
+                    {
+                        _receiver.QuestionsSaveinDB(_questions, _singles, _multiples, _opens, _machings);
+                        MessageBox.Show("Тест успішно збережено!");
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 else MessageBox.Show("Тест збережено без питань!");
             }
@@ -209,18 +183,15 @@ namespace Project_NMT_2
         {
             window.timeTest_TestBox.Text = title;
         }
-
         public void TimePrint(int time)
         {
             window.timeTest_TestBox.Text = time.ToString();
         }
-
         public void SubjectPrint(int id_subject)
         {
             string subject = ServiceDB.StringSchoolSubject(id_subject);
             window.subjectForTest_ComboBox.SelectedValue = subject;
         }
-
         public void QuestionsPrint(IEnumerable<QuestionsForTest> questions)
         {
             window.question_ListView.ItemsSource = questions;
@@ -284,20 +255,7 @@ namespace Project_NMT_2
             }
         }
 
-        //Save in class ALLTest
-        public void IdAddClassALLTests()
-        {
-            try
-            {
-                window.test.id = 0;
-                var lastTest = ServiceDB.LastTest();
-                window.test.id = lastTest.id + 1;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //Save in class ALLTest//WORK
         public void TitleAddClassALLTests(string title)
         {
             try
@@ -349,7 +307,7 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
-        //Save in DB new test
+        //Save in DB new test //WORK
         public void TestSaveInDB(ALLTest aLLTest)
         {
             try
@@ -368,23 +326,32 @@ namespace Project_NMT_2
             try
             {
                 ServiceDB.AddQuestions(questions);
-                foreach (var question in questions)
+                if (singles != null)
                 {
-                    if (singles!=null)
+                    foreach (var single in singles)
                     {
-                        ServiceDB.AddSingleChoiceAnswers(singles);
+                        ServiceDB.AddSingleChoiceAnswers(single);
                     }
-                    else if(multiples!=null)
+                }
+                if (multiples != null)
+                {
+                    foreach (var multiple in multiples)
                     {
-                        ServiceDB.AddMultipleChoiceAnswer(multiples);
+                        ServiceDB.AddMultipleChoiceAnswer(multiple);
                     }
-                    else if (machings!=null)
+                }
+                if (machings != null)
+                {
+                    foreach (var maching in machings)
                     {
-                        ServiceDB.AddMachingAnswer(machings);
+                        ServiceDB.AddMachingAnswer(maching);
                     }
-                    else if(opens!=null)
+                }
+                if (opens != null)
+                {
+                    foreach (var open in opens)
                     {
-                        ServiceDB.AddOpenAnswer(opens);
+                        ServiceDB.AddOpenAnswer(open);
                     }
                 }
             }
@@ -432,9 +399,6 @@ namespace Project_NMT_2
     }
 
 
-
-
-
     public partial class WindowCreateOrUpdateTest : Window
     {
         //WINDOW
@@ -452,6 +416,7 @@ namespace Project_NMT_2
         public List<OpenAnswer> openAnswers { get; set; } = new List<OpenAnswer>();
         public List<MachingAnswer> machingAnswers { get; set; } = new List<MachingAnswer>();
         public ALLTest test { get; set; } = new ALLTest();
+        public int idQuestion { get; set; }
         //Work with test
         //____________________________________________
         private Invoker _workWithTest { get; set; } = new Invoker();
@@ -464,36 +429,20 @@ namespace Project_NMT_2
         {
             _receiver = new Receiver(this);
             _windowAdmin_TestStart = admin_TestStart;
-            StartTest();
+            test.id = ServiceDB.LastTest().id+1;
+            idQuestion = ServiceDB.LastQuestion().id;
             InitializeComponent();
             
-        }
-        private void StartTest()//Work
-        {
-            try
-            {
-                if (_windowAdmin_TestStart.create_Btn.IsPressed==true)
-                {
-                    _workWithTest.SetOnStart(new CreateIDtest(_receiver));
-                    _workWithTest.WorkWithTest();
-                   // _workWithTest = new Invoker();
-                }
-                else return;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
         public void InitializeListQuestions()
         {
             try
             {
-                if (questions!=null && questions.Count==1)
+                if ( questions.Count==1)
                 {
                     question_ListView.ItemsSource = questions;
                 }
-                if (questions!=null && questions.Count>1)
+                else if(questions.Count>1)
                 {
                     question_ListView.Items.Refresh();
                 }
@@ -510,17 +459,18 @@ namespace Project_NMT_2
         {
             try
             {
-                if (_menuCreateTest == null || PresentationSource.FromVisual(_menuCreateTest)==null)
+                if (_menuCreateTest == null || PresentationSource.FromVisual(_menuCreateTest) == null)
                 {
+                    idQuestion++;
                     _menuCreateTest = new WindowMenuCreateTest(this);
                     _menuCreateTest.Show();
                 }
-                else 
+                else
                 {
                     _menuCreateTest.Activate();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -540,7 +490,7 @@ namespace Project_NMT_2
         {
             try
             {
-                _workWithTest.SetOnStart(new AddInfTest(_receiver, titleTest_TestBox.Text, int.Parse(timeTest_TestBox.Text), subjectForTest_ComboBox.SelectedItem.ToString(), questions));
+                _workWithTest.SetOnStart(new AddInfTest(_receiver, titleTest_TestBox.Text, int.Parse(timeTest_TestBox.Text), subjectForTest_ComboBox.SelectedItem.ToString(), questions, test));
                 _workWithTest.SetOnFinish(new SaveInfoTest(_receiver, questions, test, singleChoiceAnswers, multipleChoiceAnswers, openAnswers, machingAnswers));
                 _workWithTest.WorkWithTest();
                 if (windowAdmin_Test == null)
