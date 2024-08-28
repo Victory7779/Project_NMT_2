@@ -76,7 +76,7 @@ namespace Project_NMT_2
             else MessageBox.Show("Данний предмет не існує!");
             if (_questions!=null)
             {
-               // this._receiver.CountQAddClassALLTests(_questions);
+               this._receiver.CountQAddClassALLTests(_questions);
             }
         }
     }  
