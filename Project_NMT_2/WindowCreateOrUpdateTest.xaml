@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_NMT_2"
         mc:Ignorable="d"
-        Title="Загальна інформація про тест" 
+        Title="Тест" 
         Height="450" 
         Width="800"
-        Background="AntiqueWhite">
+        Background="AntiqueWhite"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     
     <Window.Resources>
         <ObjectDataProvider x:Key="ServiceDB" ObjectType="{x:Type local:ServiceDB}"/>
@@ -21,6 +23,8 @@
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="BorderBrush" Value="Purple"/>
             <Setter Property="Background" Value="Bisque"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="30"/>
             <!--Наклон-->
             <Setter Property="RenderTransform">
                 <Setter.Value>
@@ -41,7 +45,9 @@
         </Style>
         <!--Button-->
         <Style TargetType="Button">
-             <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
              <Setter Property="FontSize" Value="14"/>    
                     <!--Наклон-->
              <Setter Property="RenderTransform">
@@ -69,21 +75,20 @@
         <Style x:Key="Star" TargetType="TextBlock">
              <Setter Property="Foreground" Value="Red"/>
              <Setter Property="FontWeight" Value="Heavy"/>
-             <Setter Property="FontSize" Value="25"/>
+             <Setter Property="FontSize" Value="20"/>
              <Setter Property="Width" Value="20"/>
         </Style>
             <!--TextBlock-->
         <Style x:Key="NameLine" TargetType="TextBlock">
             <Setter Property="FontStyle" Value="Oblique"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Heavy"/>
             <Setter Property="TextDecorations" Value="Underline"/>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
-            <Setter Property="Text" Value="12345"/>
         </Style>
         <Style TargetType="GridViewColumnHeader">
             <Setter Property="FontStyle" Value="Italic"/>
@@ -95,7 +100,9 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" 
+                        Background="#FFFBCAA9"
+                        Margin="0 10 0 0">
                 <!--Title-->
                 <TextBlock Text="*" 
                            Style="{StaticResource Star}"
@@ -106,7 +113,9 @@
                 <TextBox x:Name="titleTest_TestBox"
                          Width="600"/>      
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal"
+                        Background="#FFFBCAA9"
+                        Margin="0 10 0 0">
                 <!--Выбор предмета-->
                 <TextBlock Text="*" 
                            Style="{StaticResource Star}"
@@ -114,7 +123,7 @@
                 <ComboBox x:Name="subjectForTest_ComboBox"  
                           ItemsSource="{Binding Source={StaticResource SchoolSubjects}}"
                            Width="300"
-                          Height="35"/>
+                          Height="20"/>
                 <!--Время-->
                 <TextBlock Text="*" 
                             Style="{StaticResource Star}"
@@ -132,11 +141,13 @@
                            VerticalAlignment="Center"
                            Style="{StaticResource NameLine}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal"
+                        Background="#FFFBCAA9"
+                        Margin="0 10 0 0">
                 <!--Список вопросов теста-->
                 <ListView x:Name="question_ListView" 
                           Width="500" 
-                          Height="300"
+                          Height="250"
                           Margin="40 15 5 10"
                           HorizontalAlignment="Center"
                           ItemsSource="{Binding questions}">
@@ -151,48 +162,43 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <StackPanel Width="250">
+                <StackPanel Width="230">
                     <!--Додати питання до тесту-->
                     <Button x:Name="addQuestion_Btn" 
-                            Width="100" 
-                            Height="50"
-                            Margin="20 20 10 10"
+                            Margin="20 50 10 10"
                             HorizontalAlignment="Left"
                             Style="{StaticResource PurpleStyle}"
                             Click="addQuestion_Btn_Click">
                         <TextBlock Text="Додати"
-                                   FontSize="20"
+                                   FontSize="15"
                                    FontWeight="DemiBold"/>
                     </Button>
                     <!--Видалити питання-->
-                    <Button x:Name="deleteQuestion_Btn"    Width="100" 
-                            Height="50"
+                    <Button x:Name="deleteQuestion_Btn"    
                             Margin="20 20 10 10"
                             HorizontalAlignment="Left"
                             Click="deleteQuestion_Btn_Click">
                         <TextBlock Text="Видалити"
-                                   FontSize="20"
+                                   FontSize="15"
                                    FontWeight="DemiBold"/>  
                     </Button>
                     <!--Збереження тесту-->
-                    <Button x:Name="saveTest_Btn"    Width="100" 
-                            Height="50"
+                    <Button x:Name="saveTest_Btn" 
                             Margin="0 30 20 0"
                             HorizontalAlignment="Right"
                             Click="saveTest_Btn_Click">
                         <TextBlock Text="Зберегти"
-                                   FontSize="20"
+                                   FontSize="15"
                                    FontWeight="DemiBold"/>
                     </Button>
                     <!--Вийти з вікна-->
-                    <Button x:Name="exit_Btn"    Width="100" 
-                            Height="50"
-                            Margin="0 10 20 10"
+                    <Button x:Name="exit_Btn" 
+                            Margin="0 30 20 10"
                             HorizontalAlignment="Right"
                             Style="{StaticResource PurpleStyle}"
                             Click="exit_Btn_Click">
                         <TextBlock Text="Вийти"
-                                   FontSize="20"
+                                   FontSize="15"
                                    FontWeight="DemiBold"/>
                     </Button>
                 </StackPanel>

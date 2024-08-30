@@ -8,6 +8,8 @@
         Title="Питання" Height="450" Width="800"
         WindowStyle="SingleBorderWindow"
         Background="Bisque"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/icon.png">
     <Window.Resources>
         <!--Button-->
@@ -61,10 +63,10 @@
                  Padding="5 5 0 0"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  TextWrapping="Wrap"/>
-        
-        
-        
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="#FFFBCAA9">
             <StackPanel Orientation="Vertical" Margin="90 0 0 0">
                 <!--Обозначения  вопросов и ответов !!!Не трогать!!!-->
                 <StackPanel x:Name="answer_StackPanel"

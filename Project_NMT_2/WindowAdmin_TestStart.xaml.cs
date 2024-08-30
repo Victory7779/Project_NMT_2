@@ -56,7 +56,7 @@ namespace Project_NMT_2
             {
                 if (createOrUpdateTest == null || PresentationSource.FromVisual(createOrUpdateTest) == null)
                 {
-                    createOrUpdateTest = new WindowCreateOrUpdateTest(this);
+                    createOrUpdateTest = new WindowCreateOrUpdateTest(this, "create", new ALLTest());
                     createOrUpdateTest.Show();
                     this.Close();
                 }
@@ -69,9 +69,22 @@ namespace Project_NMT_2
 
         }
 
-        private void updateBtn_Click(object sender, RoutedEventArgs e)
+        private void updateBtn_Click(object sender, RoutedEventArgs e)///Пока под вопросам
         {
-
+            try
+            {
+                if (createOrUpdateTest == null || PresentationSource.FromVisual(createOrUpdateTest) == null)
+                {
+                    createOrUpdateTest = new WindowCreateOrUpdateTest(this, "update", (test_ListView.SelectedItem as ALLTest));
+                    createOrUpdateTest.Show();
+                    this.Close();
+                }
+                else createOrUpdateTest.Activate();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e) //WORK!!!!
@@ -122,6 +135,26 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private void subjectForTest_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) //WORK
+        {
+            string subjectText = (sender as ComboBox).SelectedItem as string;
+            if(subjectText!=null || subjectText.Length==0)
+            {
+                InitializeALLTest();
+                test_ListView.Items.Refresh();
+            }
+            int subjectId = ServiceDB.IdSchoolSubject(subjectText);
+            var allTests_Subject = ServiceDB.GetTestWithSubject(subjectId);
+            aLLTest = allTests_Subject as List<ALLTest>;
+            if (aLLTest!=null)
+            {
+                test_ListView.ItemsSource = aLLTest;
+                test_ListView.Items.Refresh();
+            }
+            else { MessageBox.Show($"Тести з предмету {subjectText}\n ВІДСУТНІ"); }
+
         }
     }
 }

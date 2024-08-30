@@ -37,6 +37,7 @@ namespace Project_NMT_2
         }
 
 
+
         //For table ALLTeats
         //Выводим список всех тестов
         public static IEnumerable<ALLTest> GetALLTests()
@@ -111,6 +112,16 @@ namespace Project_NMT_2
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        //Список тестов с выбранным предметом
+        public static IEnumerable<ALLTest> GetTestWithSubject(int subjectId)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<ALLTest>($"SELECT * FROM ALLTests WHERE id_subject={subjectId} ");
+            }
+            catch { return null; }
         }
 
         //Обновить название теста

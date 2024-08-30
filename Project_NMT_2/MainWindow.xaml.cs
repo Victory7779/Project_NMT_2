@@ -27,6 +27,7 @@ namespace Project_NMT_2
         System.Windows.Threading.DispatcherTimer timer;
         public  MainWindow()
         {
+
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = new TimeSpan(0, 0, 1);
