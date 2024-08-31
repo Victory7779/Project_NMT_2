@@ -28,10 +28,11 @@ namespace Project_NMT_2.Model
         public virtual ICollection<Reviews> Reviewss { get; set; }
         public virtual ICollection<PassedTest> Tests { get; set; }
 
-        public UserPersonalInfomation(string _Name, int _Age)
+        public UserPersonalInfomation(string _Name, int _Age, byte[] photo)
         {
             Name = _Name;
             Age = _Age;
+            Photo = photo;
         }
         public override string ToString()
         {
