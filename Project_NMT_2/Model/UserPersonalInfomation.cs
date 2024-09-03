@@ -33,6 +33,7 @@ namespace Project_NMT_2.Model
             Name = _Name;
             Age = _Age;
         }
+        public UserPersonalInfomation() { }
         public override string ToString()
         {
             return $"id: {id} Ім'я: {Name} Вік: {Age}";

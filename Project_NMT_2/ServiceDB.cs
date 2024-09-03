@@ -15,7 +15,14 @@ namespace Project_NMT_2
         //For table SchoolSubjects 
         //Выводим список школьных предметов
         public static IEnumerable<string> GetSchoolSubjects()
-        => new SqlConnection(connectionString).Query<string>("SELECT subject FROM SchoolSubjects ");
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<string>("SELECT subject FROM SchoolSubjects ");
+            }
+            catch { return null; }
+        }
+        
         //Ищем id предмета по его названию
         public static int IdSchoolSubject(string subject)
         {
@@ -372,5 +379,33 @@ namespace Project_NMT_2
         }
 
 
+        //Users
+        //____________________________________________________________
+        public static IEnumerable<UserPersonalInfomation> GetAllUsers ()
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<UserPersonalInfomation>("SELECT * FROM UserPersonalInfomations");
+            }
+            catch { return null; }
+        }
+
+        //Reviews
+        public static IEnumerable<Reviews> GetReviewsOneUsers(int id_User)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<Reviews>($"SELECT * FROM Reviews WHERE id_user={id_User}");
+            }
+            catch { return null; }
+        }
+        public static IEnumerable<Reviews>GetAllReviews()
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<Reviews>($"SELECT * FROM Reviews");
+            }
+            catch { return null; }
+        }
     }
 }

@@ -25,11 +25,49 @@ namespace Project_NMT_2
 
         //For Binding ListView
         private List<ALLTest> aLLTest { get; set; }
+        private List<UserPersonalInfomation> users { get; set; }
+        private List<Reviews> reviews { get; set; }
         public WindowAdmin_TestStart()
         {
             InitializeComponent();
             InitializeALLTest();
-            
+            InitializeUsers();
+            InitializeRewiew();
+        }
+
+        private void InitializeRewiew()
+        {
+            reviews = new List<Reviews>();
+            reviews = ServiceDB.GetAllReviews().ToList();
+            try
+            {
+                
+                if (reviews!=null)
+                {
+                    reviews_ListView.ItemsSource = reviews;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void InitializeUsers()
+        {
+            users = new List<UserPersonalInfomation>();
+            users = ServiceDB.GetAllUsers().ToList();
+            try
+            {
+                if (users!=null)
+                {
+                    users_ListView.ItemsSource = users;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void InitializeALLTest()
@@ -50,6 +88,48 @@ namespace Project_NMT_2
             
         }
 
+
+        //USER
+        //___________________________________________________________________
+        private void refresh_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var user = users_ListView.SelectedItem as UserPersonalInfomation;
+
+                reviews = ServiceDB.GetReviewsOneUsers(user.id).ToList();
+                reviews_ListView.ItemsSource= reviews;
+                reviews_ListView.Items.Refresh();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void blocking_Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void reviews_ListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var user = users_ListView.SelectedItem as UserPersonalInfomation;
+
+                reviews = ServiceDB.GetReviewsOneUsers(user.id).ToList();
+                reviews_ListView.ItemsSource = reviews;
+                reviews_ListView.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        //TESTs
+        //____________________________________________________________________________________
         private void createBtn_Click(object sender, RoutedEventArgs e)//Work
         {
             try
@@ -156,5 +236,7 @@ namespace Project_NMT_2
             else { MessageBox.Show($"Тести з предмету {subjectText}\n ВІДСУТНІ"); }
 
         }
+
+
     }
 }

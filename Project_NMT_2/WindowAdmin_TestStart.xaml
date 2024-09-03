@@ -14,6 +14,7 @@
         <Style x:Key="PurpleStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="Purple"/>
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="BorderBrush" Value="Purple"/>
@@ -36,6 +37,13 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="NameLine" TargetType="TextBlock">
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="Background" Value="Wheat"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid>
@@ -48,8 +56,64 @@
                             <TextBlock Text="Користувачі" FontWeight="Bold"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <StackPanel></StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Margin="50 35 0 0">
+                            <TextBlock Text="Користувачі"
+                                       Style="{StaticResource NameLine}"
+                                       Margin="5 0 0 10"/>
+                            <ListView x:Name="users_ListView"
+                                      Width="300"
+                                      Height="200"
+                                      ItemsSource="{Binding users}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding id}"/>
+                                        <GridViewColumn Header="Ім'я" Width="199" DisplayMemberBinding="{Binding Name}"/>
+                                        <GridViewColumn Header="Вік" Width="50" DisplayMemberBinding="{Binding Age}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button x:Name="refresh_Btn"
+                                    Content="Оновити"
+                                    Width="70"
+                                    Height="30"
+                                    Margin="0 15 10 0"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource PurpleStyle}"
+                                    Click="refresh_Btn_Click"/>
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Orientation="Vertical" Margin="70 35 0 0">
+                            <TextBlock Text="Відгуки"
+                                        Style="{StaticResource NameLine}"
+                                        Margin="5 0 0 10"/>
+                            <ListView x:Name="reviews_ListView"
+                                      Width="300"
+                                      Height="200"
+                                      ItemsSource="{Binding reviews}"
+                                      MouseLeftButtonDown="reviews_ListView_MouseLeftButtonDown">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding id_user}" />
+                                        <GridViewColumn Header="Відгук" Width="230" DisplayMemberBinding="{Binding review}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button x:Name="blocking_Btn"
+                                    Content="Блокувати"
+                                    Width="80"
+                                    Height="30"
+                                    Margin="0 15 10 0"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource PurpleStyle}"
+                                    Click="blocking_Btn_Click"/>
+                        </StackPanel>
+                    </StackPanel>
                 </TabItem>
+                
+                
+                
                 <!--Вложение с тестами-->
                 <TabItem Name="tabItem_Tests">
                     <TabItem.Header>
