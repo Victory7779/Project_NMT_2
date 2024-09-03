@@ -187,19 +187,19 @@ namespace Project_NMT_2
             InitializationUser initializationUser = new InitializationUser(UserEmailRgstrTextBox.Text, UserPasswordRgstrTextBox.Text, new_user.id);
             DBservice.AddNewInitializationUSer(initializationUser, new_user);
 
-            ////Создание и добавление SubjectUSers to DB 
+            //Создание и добавление SubjectUSers to DB 
 
-            //bool? nullableUkr = UkrCheckBox.IsChecked;
-            //bool regularUkr = nullableUkr.GetValueOrDefault();
+            bool? nullableUkr = UkrCheckBox.IsChecked;
+            bool regularUkr = nullableUkr.GetValueOrDefault();
 
-            //bool? nullableMath = MathCheckBox.IsChecked;
-            //bool regularMath = nullableMath.GetValueOrDefault();
+            bool? nullableMath = MathCheckBox.IsChecked;
+            bool regularMath = nullableMath.GetValueOrDefault();
 
-            //bool? nullableHistory = HistoryCheckBox.IsChecked;
-            //bool regularHistory = nullableHistory.GetValueOrDefault();
+            bool? nullableHistory = HistoryCheckBox.IsChecked;
+            bool regularHistory = nullableHistory.GetValueOrDefault();
 
-            //SubjectUsers subjectUser = new SubjectUsers(regularUkr, regularMath, regularHistory, new_user.id);
-
+            SubjectUsers subjectUser = new SubjectUsers(regularUkr, regularMath, regularHistory, new_user.id);
+            DBservice.AddNewSubjectUsers(subjectUser);
 
         }
 

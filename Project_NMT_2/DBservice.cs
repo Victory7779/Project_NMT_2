@@ -102,6 +102,36 @@ namespace Project_NMT_2
             }
         }
 
+        //public static void AddNewSubjectUsers(SubjectUsers subjectUsers)
+        //{
+        //    try
+        //    {
+        //        using (var db = new SqlConnection(connectionString))
+        //        {
+        //            db.Open();
+
+        //            // SQL-запрос для вставки данных
+        //            string sql = "INSERT INTO SubjectUsers (Ukrainian, Mathematics, History, id_user) " +
+        //                         "VALUES (@Ukrainian, @Mathematics, @History, @id_user);"; 
+        //                         //"SELECT SCOPE_IDENTITY();";  // Получение ID последней вставленной записи
+
+        //            using (SqlCommand command = new SqlCommand(sql, db))
+        //            {
+        //                // Добавляем параметры
+        //                command.Parameters.AddWithValue("@Ukrainian", subjectUsers.Ukrainian); 
+        //                command.Parameters.AddWithValue("@Mathematics", subjectUsers.Mathematics); 
+        //                command.Parameters.AddWithValue("@History", subjectUsers.History);   
+        //                command.Parameters.AddWithValue("@id_user", idOfUser);   // id_user
+
+
+        //                db.Execute(sql);
+        //            }
+        //        }
+
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message); }
+        //}
+
         public static void AddNewSubjectUsers(SubjectUsers subjectUsers)
         {
             try
@@ -112,25 +142,27 @@ namespace Project_NMT_2
 
                     // SQL-запрос для вставки данных
                     string sql = "INSERT INTO SubjectUsers (Ukrainian, Mathematics, History, id_user) " +
-                                 "VALUES (@Ukrainian, @Mathematics, @History, @id_user);"; 
-                                 //"SELECT SCOPE_IDENTITY();";  // Получение ID последней вставленной записи
+                                 "VALUES (@Ukrainian, @Mathematics, @History, @id_user);";
 
                     using (SqlCommand command = new SqlCommand(sql, db))
                     {
                         // Добавляем параметры
-                        command.Parameters.AddWithValue("@Ukrainian", subjectUsers.Ukrainian); 
-                        command.Parameters.AddWithValue("@Mathematics", subjectUsers.Mathematics); 
-                        command.Parameters.AddWithValue("@History", subjectUsers.History);   
+                        command.Parameters.AddWithValue("@Ukrainian", subjectUsers.Ukrainian);
+                        command.Parameters.AddWithValue("@Mathematics", subjectUsers.Mathematics);
+                        command.Parameters.AddWithValue("@History", subjectUsers.History);
                         command.Parameters.AddWithValue("@id_user", idOfUser);   // id_user
 
-                        // Выполняем запрос и получаем идентификатор последней вставленной записи
-                        
+                        // Выполняем команду
+                        command.ExecuteNonQuery();
                     }
                 }
-
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
         public static void AddNewInitializationUSer(InitializationUser initializationUser, UserPersonalInfomation userInfo)
         {
             try
