@@ -33,7 +33,7 @@ namespace Project_NMT_2
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             InitializeComponent();
-            //InitializeDB();
+           //nitializeDB();
         }
 
         private void timer_Tick(object sender, EventArgs e)

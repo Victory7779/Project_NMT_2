@@ -24,6 +24,8 @@ namespace Project_NMT_2.Model
 
         [Required]
         public int Age { get; set; }
+        [Required]
+        public int blocking { get; set; } = 0;
 
         public virtual ICollection<Reviews> Reviewss { get; set; }
         public virtual ICollection<PassedTest> Tests { get; set; }

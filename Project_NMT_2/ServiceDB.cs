@@ -389,6 +389,27 @@ namespace Project_NMT_2
             }
             catch { return null; }
         }
+        public static void UserPersonalBlocking(int blocking, int id_user)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                db.Open();
+                string sql = $"" +
+                    $"UPDATE UserPersonalInfomations " +
+                    $"SET blocking={blocking} " +
+                    $"WHERE id={id_user}";
+                db.Execute(sql);
+                db.Close();
+            }
+        }
+        public static UserPersonalInfomation GetUserPersonal(int id_user)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).QueryFirst<UserPersonalInfomation>($"SELECT * FROM UserPersonalInfomations WHERE id={id_user}");
+            }
+            catch { return null; }
+        }
 
         //Reviews
         public static IEnumerable<Reviews> GetReviewsOneUsers(int id_User)
@@ -406,6 +427,27 @@ namespace Project_NMT_2
                 return new SqlConnection(connectionString).Query<Reviews>($"SELECT * FROM Reviews");
             }
             catch { return null; }
+        }
+        public static Reviews GetOneReview(int id)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).QueryFirst<Reviews>($"SELECT * FROM Reviews WHERE id={id}");
+            }
+            catch { return null; }
+        }
+        public static void DeleteReviews(int id)
+        {
+            if (ServiceDB.GetOneReview(id) == null) return;
+            using(var db=new SqlConnection(connectionString))
+            {
+                db.Open();
+                string sql = $"" +
+                    $"DELETE FROM Reviews WHERE id={id}";
+                db.Execute(sql);
+                db.Close();
+            }
+
         }
     }
 }

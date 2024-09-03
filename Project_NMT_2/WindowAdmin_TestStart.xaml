@@ -73,14 +73,23 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button x:Name="refresh_Btn"
-                                    Content="Оновити"
-                                    Width="70"
-                                    Height="30"
-                                    Margin="0 15 10 0"
-                                    HorizontalAlignment="Right"
-                                    Style="{StaticResource PurpleStyle}"
-                                    Click="refresh_Btn_Click"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="search_Btn"
+                                        Content="Пошук"
+                                        Width="70"
+                                        Height="30"
+                                        Margin="0 15 20 0"
+                                        Style="{StaticResource PurpleStyle}"
+                                        Click="search_Btn_Click"/>
+                                <Button x:Name="refresh_Btn"
+                                        Content="Оновити"
+                                        Width="70"
+                                        Height="30"
+                                        Margin="0 15 20 0"
+                                        Style="{StaticResource PurpleStyle}"
+                                        Click="refresh_Btn_Click"/>
+                            </StackPanel>
+                            
                         </StackPanel>
                         
                         
@@ -91,8 +100,7 @@
                             <ListView x:Name="reviews_ListView"
                                       Width="300"
                                       Height="200"
-                                      ItemsSource="{Binding reviews}"
-                                      MouseLeftButtonDown="reviews_ListView_MouseLeftButtonDown">
+                                      ItemsSource="{Binding reviews}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding id_user}" />
@@ -100,6 +108,7 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
+                            
                             <Button x:Name="blocking_Btn"
                                     Content="Блокувати"
                                     Width="80"

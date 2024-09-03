@@ -88,30 +88,45 @@ namespace Project_NMT_2
             
         }
 
-
         //USER
         //___________________________________________________________________
         private void refresh_Btn_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var user = users_ListView.SelectedItem as UserPersonalInfomation;
+            InitializeUsers();
+            users_ListView.Items.Refresh();
 
-                reviews = ServiceDB.GetReviewsOneUsers(user.id).ToList();
-                reviews_ListView.ItemsSource= reviews;
-                reviews_ListView.Items.Refresh();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            InitializeRewiew();
+            reviews_ListView.Items.Refresh();
+
         }
 
         private void blocking_Btn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var review = reviews_ListView.SelectedItem as Reviews;
+                var user = ServiceDB.GetUserPersonal(review.id_user);
+                int block = user.blocking;
+                if (block<3)
+                {
+                    block++;
+                    ServiceDB.UserPersonalBlocking(block, review.id_user);
+                    ServiceDB.DeleteReviews(review.id);
+                    reviews.Remove(review);
+                    reviews_ListView.ItemsSource = reviews;
+                    reviews_ListView.Items.Refresh();
+                    MessageBox.Show($"Користувач {user.Name} заблокован. {block}");
+                }
+                else { MessageBox.Show($"{block}"); }
 
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
-        private void reviews_ListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        private void search_Btn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -126,6 +141,8 @@ namespace Project_NMT_2
                 MessageBox.Show(ex.Message);
             }
         }
+
+
 
 
         //TESTs
@@ -236,7 +253,5 @@ namespace Project_NMT_2
             else { MessageBox.Show($"Тести з предмету {subjectText}\n ВІДСУТНІ"); }
 
         }
-
-
     }
 }
