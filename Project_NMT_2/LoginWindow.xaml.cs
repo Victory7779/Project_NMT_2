@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Dapper;
+using System.Data.SqlClient;
+using Project_NMT_2;
 
 namespace Project_NMT_2
 {
@@ -26,7 +29,19 @@ namespace Project_NMT_2
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (DBservice.IsUserExists(EmailTextBox.Text, PasswordTextBox.Text) == true)
+            {
+                int id_user = (int)DBservice.GetUserIdInLoginWindow(EmailTextBox.Text, PasswordTextBox.Text);
+                UserMainWindow userMainWindow = new UserMainWindow(id_user);
+                userMainWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ваш e-mail або пароль введені не вірно, спробуйте ще раз");
+                EmailTextBox.Text = "";
+                PasswordTextBox.Text = "";
+            }
         }
 
         private void AdminButton_Click(object sender, RoutedEventArgs e)

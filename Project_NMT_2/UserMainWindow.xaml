@@ -1,0 +1,31 @@
+﻿<Window x:Class="Project_NMT_2.UserMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_NMT_2"
+        mc:Ignorable="d"
+        Title="UserMainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl x:Name="SubjectstabControl">
+            <TabItem Name="MainTabItem" Width="60" Height="40" FontSize="30" Header="Г">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Name="UkrTabItem" Width="40" Height="40" FontSize="30" Header="У">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Name="MathTabItem" Width="40" Height="40" FontSize="30" Header="М">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Name="HistoryTabItem" Width="40" Height="40" FontSize="30" Header="І">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Name="ContactsTabItem" Width="120" HorizontalAlignment="Left" Height="40" FontSize="25" Header="Контакти">
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

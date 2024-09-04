@@ -17,55 +17,7 @@ namespace Project_NMT_2
         private static readonly string connectionString = @"Server=EMIL-KOSTENKO\SQLEXPRESS; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
 
         public static string idOfUser = string.Empty;
-        //public static void AddNewUserPersonalInformation(UserPersonalInfomation user)
-        //{
-        //    try
-        //    {
-
-
-
-        //        using (var db = new SqlConnection(connectionString))
-        //        {
-        //            db.Open();
-        //            string sql = $"INSERT UserPersonalInfomations (Photo, Name, Age) " +
-        //                $" VALUES (@Photo, N'{user.Name}', {user.Age})";
-        //            using (SqlCommand command = new SqlCommand(sql, db))
-        //            {
-        //                // Добавляем параметр с данными изображения
-        //                command.Parameters.AddWithValue("@Photo", user.Photo);
-        //                db.Execute(sql);
-
-        //            }
-
-
-        //            db.Close();
-
-        //        }
-
-        //        string query = "SELECT TOP 1 id "  +
-        //            "FROM UserPersonalInfomations " +
-        //            "ORDER BY ID DESC;";
-
-
-
-        //        using (SqlConnection connection = new SqlConnection(connectionString))
-        //        {
-        //            SqlCommand command = new SqlCommand(query, connection);
-        //            connection.Open();
-        //            object value = command.ExecuteScalar();
-        //            if (value != null)
-        //            {
-        //                idOfUser = value.ToString();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-
-
-        //}
+       
 
         public static void AddNewUserPersonalInformation(UserPersonalInfomation user)
         {
@@ -102,35 +54,7 @@ namespace Project_NMT_2
             }
         }
 
-        //public static void AddNewSubjectUsers(SubjectUsers subjectUsers)
-        //{
-        //    try
-        //    {
-        //        using (var db = new SqlConnection(connectionString))
-        //        {
-        //            db.Open();
-
-        //            // SQL-запрос для вставки данных
-        //            string sql = "INSERT INTO SubjectUsers (Ukrainian, Mathematics, History, id_user) " +
-        //                         "VALUES (@Ukrainian, @Mathematics, @History, @id_user);"; 
-        //                         //"SELECT SCOPE_IDENTITY();";  // Получение ID последней вставленной записи
-
-        //            using (SqlCommand command = new SqlCommand(sql, db))
-        //            {
-        //                // Добавляем параметры
-        //                command.Parameters.AddWithValue("@Ukrainian", subjectUsers.Ukrainian); 
-        //                command.Parameters.AddWithValue("@Mathematics", subjectUsers.Mathematics); 
-        //                command.Parameters.AddWithValue("@History", subjectUsers.History);   
-        //                command.Parameters.AddWithValue("@id_user", idOfUser);   // id_user
-
-
-        //                db.Execute(sql);
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex) { MessageBox.Show(ex.Message); }
-        //}
+       
 
         public static void AddNewSubjectUsers(SubjectUsers subjectUsers)
         {
@@ -211,11 +135,118 @@ namespace Project_NMT_2
 
         }
 
+        public static bool IsUserExists(string email, string password)
+        {
+            bool userExists = false;
+
+            try
+            {
+                using (var db = new SqlConnection(connectionString))
+                {
+                    db.Open();
+
+                    string sql = "SELECT COUNT(*) FROM InitializationUsers WHERE Email = @Email AND Password = @Password;";
+
+                    using (SqlCommand command = new SqlCommand(sql, db))
+                    {
+                        // Добавляем параметры
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        // Выполняем команду и получаем количество записей
+                        int count = (int)command.ExecuteScalar();
+
+                        // Если count больше 0, значит такой пользователь существует
+                        userExists = count > 0;
+                        db.Execute(sql);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return userExists;
+        }
 
 
-        //public static IEnumerable<string> GetUsersInformation()
-        //=> new SqlConnection(connectionString).Query<string>("SELECT * FROM InitializationUsers" +
-        //    "INNER JOIN UserPersonalInformations " +
-        //    "ON InitializationUsers ");
+        public static int? GetUserIdInLoginWindow(string email, string password)
+        {
+            int? userId = null;
+
+            try
+            {
+                using (var db = new SqlConnection(connectionString))
+                {
+                    db.Open();
+
+                    string sql = $"SELECT id_user FROM InitializationUsers WHERE Email = @Email AND Password = @Password;";
+
+                    using (SqlCommand command = new SqlCommand(sql, db))
+                    {
+                        // Добавляем параметры
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        // Выполняем запрос и получаем id_user
+                        var result = command.ExecuteScalar();
+
+                        // Проверяем, найден ли пользователь
+                        if (result != null)
+                        {
+                            userId = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return userId;
+        }
+
+        public static (bool Ukrainian, bool Mathematics, bool History)? GetSubjects(int id_user)
+        {
+            (bool Ukrainian, bool Mathematics, bool History)? subjects = null;
+
+            try
+            {
+                using (var db = new SqlConnection(connectionString))
+                {
+                    db.Open();
+
+                    string sql = "SELECT Ukrainian, Mathematics, History FROM SubjectUsers WHERE id_user = @id_user;";
+
+                    using (SqlCommand command = new SqlCommand(sql, db))
+                    {
+                        command.Parameters.AddWithValue("@id_user", id_user);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                bool Ukrainian = reader.GetBoolean(0);
+                                bool Mathematics = reader.GetBoolean(1);
+                                bool History = reader.GetBoolean(2);
+
+                                subjects = (Ukrainian, Mathematics, History);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return subjects;
+        }
+
+
+
     }
 }
