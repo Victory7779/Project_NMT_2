@@ -96,7 +96,7 @@ namespace Project_NMT_2
         private void SaveAdminsInformation()
         {
             //проверка на существование такого имейла в базе данных
-            string connectionString = @"Server=DESKTOP-0C5DMI4\MSSQLSERVER01; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
+            string connectionString = @"Server=EMIL-KOSTENKO\SQLEXPRESS; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
 
 
             string emailToCheck = UserEmailRgstrTextBox.Text;
@@ -140,7 +140,7 @@ namespace Project_NMT_2
         private void SaveUserInformation()
         {
             //проверка на существование такого имейла в базе данных
-            string connectionString = @"Server=DESKTOP-0C5DMI4\MSSQLSERVER01; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
+            string connectionString = @"Server=EMIL-KOSTENKO\SQLEXPRESS; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
 
 
             string emailToCheck = UserEmailRgstrTextBox.Text;
