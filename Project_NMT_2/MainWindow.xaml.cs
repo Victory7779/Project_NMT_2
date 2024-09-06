@@ -33,7 +33,7 @@ namespace Project_NMT_2
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             InitializeComponent();
-           //nitializeDB();
+            InitializeDB();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -143,7 +143,7 @@ namespace Project_NMT_2
             {
                 new SchoolSubjects("Українська мова"),
                 new SchoolSubjects("Математика"),
-                new SchoolSubjects("Історія")
+                new SchoolSubjects("Історія України")
             };
             db.SchoolSubjects.AddRange(schools);
             db.SaveChanges();
