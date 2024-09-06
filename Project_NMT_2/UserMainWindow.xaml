@@ -12,13 +12,151 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Name="UkrTabItem" Width="40" Height="40" FontSize="30" Header="У">
-                <Grid Background="#FFE5E5E5"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="30 20 0 0">
+                        <TextBlock Text="Всі доступні тести:" FontSize="16" Margin="10 0 0 5"/>
+                        <ListView x:Name="ukrTest_ListView"
+                                  ItemsSource="{Binding ukrainainTest}"
+                                  Width="270"
+                                  Height="200"
+                                  FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                    <GridViewColumn Header="Назва теста" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn Header="Питання" Width="60" DisplayMemberBinding="{Binding CountQ}"/>
+                                    <GridViewColumn Header="Час" Width="30" DisplayMemberBinding="{Binding Time}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="startUkr_Btn"
+                                Content="Старт"
+                                FontSize="12"
+                                Width="50"
+                                Height="20"
+                                HorizontalAlignment="Right"
+                                Margin="0 10 10 0"
+                                Click="startUkr_Btn_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="25 20 0 0">
+                        <TextBlock Text="Ваші пройдені тести:"
+                                   FontSize="16"
+                                   Margin="10 0 0 5"/>
+                        <ListView x:Name="ukrTestPASS_ListView"
+                                  ItemsSource="{Binding ukrainainTestPass}"
+                                  Width="450"
+                                  Height="200"
+                                  FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                    <GridViewColumn Header="Назва теста" Width="250" DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn Header="Правильні" Width="75" DisplayMemberBinding="{Binding CorrectQ}"/>
+                                    <GridViewColumn Header="Питання" Width="60" DisplayMemberBinding="{Binding CountQ}"/>
+                                    <GridViewColumn Header="Час" Width="30" DisplayMemberBinding="{Binding Time}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
             </TabItem>
             <TabItem Name="MathTabItem" Width="40" Height="40" FontSize="30" Header="М">
-                <Grid Background="#FFE5E5E5"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="30 20 0 0">
+                        <TextBlock Text="Всі доступні тести:" FontSize="16" Margin="10 0 0 5"/>
+                        <ListView x:Name="mathTest_ListView"
+                                   ItemsSource="{Binding mathTest}"
+                                   Width="270"
+                                   Height="200"
+                                   FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                    <GridViewColumn Header="Назва теста" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn Header="Питання" Width="60" DisplayMemberBinding="{Binding CountQ}"/>
+                                    <GridViewColumn Header="Час" Width="30" DisplayMemberBinding="{Binding Time}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="startMath_Btn"
+                                 Content="Старт"
+                                 FontSize="12"
+                                 Width="50"
+                                 Height="20"
+                                 HorizontalAlignment="Right"
+                                 Margin="0 10 10 0"
+                                 Click="startMath_Btn_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="25 20 0 0">
+                        <TextBlock Text="Ваші пройдені тести:"
+                    FontSize="16"
+                    Margin="10 0 0 5"/>
+                        <ListView x:Name="mathTestPASS_ListView"
+                   ItemsSource="{Binding mathTestPass}"
+                   Width="450"
+                   Height="200"
+                   FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                    <GridViewColumn Header="Назва теста" Width="250" DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn Header="Правильні" Width="75" DisplayMemberBinding="{Binding CorrectQ}"/>
+                                    <GridViewColumn Header="Питання" Width="60" DisplayMemberBinding="{Binding CountQ}"/>
+                                    <GridViewColumn Header="Час" Width="30" DisplayMemberBinding="{Binding Time}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
             </TabItem>
             <TabItem Name="HistoryTabItem" Width="40" Height="40" FontSize="30" Header="І">
-                <Grid Background="#FFE5E5E5"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="30 20 0 0">
+                        <TextBlock Text="Всі доступні тести:" FontSize="16" Margin="10 0 0 5"/>
+                        <ListView x:Name="historyTest_ListView"
+                                   ItemsSource="{Binding historyTest}"
+                                   Width="270"
+                                   Height="200"
+                                   FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                    <GridViewColumn Header="Назва теста" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn Header="Питання" Width="60" DisplayMemberBinding="{Binding CountQ}"/>
+                                    <GridViewColumn Header="Час" Width="30" DisplayMemberBinding="{Binding Time}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="startHistory_Btn"
+                                 Content="Старт"
+                                 FontSize="12"
+                                 Width="50"
+                                 Height="20"
+                                 HorizontalAlignment="Right"
+                                 Margin="0 10 10 0"
+                                 Click="startHistory_Btn_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="25 20 0 0">
+                        <TextBlock Text="Ваші пройдені тести:"
+                                    FontSize="16"
+                                    Margin="10 0 0 5"/>
+                        <ListView x:Name="historyTestPASS_ListView"
+                                   ItemsSource="{Binding historyTestPass}"
+                                   Width="450"
+                                   Height="200"
+                                   FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
+                                    <GridViewColumn Header="Назва теста" Width="250" DisplayMemberBinding="{Binding Title}"/>
+                                    <GridViewColumn Header="Правильні" Width="75" DisplayMemberBinding="{Binding CorrectQ}"/>
+                                    <GridViewColumn Header="Питання" Width="60" DisplayMemberBinding="{Binding CountQ}"/>
+                                    <GridViewColumn Header="Час" Width="30" DisplayMemberBinding="{Binding Time}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
             </TabItem>
             <TabItem Name="ContactsTabItem" Width="120" HorizontalAlignment="Left" Height="40" FontSize="25" Header="Контакти">
                 <Grid Background="#FFE5E5E5">
@@ -26,6 +164,13 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
+        <Button x:Name="end_Btn"
+                Content="Вийти"
+                Width="50"
+                Height="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0 0 10 10"
+                Click="end_Btn_Click"/>
     </Grid>
 </Window>

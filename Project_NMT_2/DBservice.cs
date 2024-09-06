@@ -14,7 +14,7 @@ namespace Project_NMT_2
 {
     public class DBservice
     {
-        private static readonly string connectionString = @"Server=EMIL-KOSTENKO\SQLEXPRESS; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
+        private static readonly string connectionString = @"Server=DESKTOP-0C5DMI4\MSSQLSERVER01; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
 
         public static string idOfUser = string.Empty;
        
@@ -247,6 +247,44 @@ namespace Project_NMT_2
         }
 
 
+
+        //Subject for test
+        public static int GetIDSubject(string subject)
+            => new SqlConnection(connectionString).QueryFirst<int>($"SELECT id FROM SchoolSubjects WHERE subject='{subject}'");
+
+
+        // ALLTest
+        public static IEnumerable<ALLTest> GetSubjectTest(string subject)
+        {
+            try
+            {
+                int id_subject = DBservice.GetIDSubject(subject);
+                return new SqlConnection(connectionString).Query<ALLTest>($"SELECT * FROM ALLTests WHERE id_subject={id_subject}");
+            }
+            catch { return null; }
+        }
+
+        //Pass Test
+        public static IEnumerable<PassedTest> GetSubjectTestPass(string subject, int? id_user)
+        {
+            try
+            { 
+
+                return new SqlConnection(connectionString).Query<PassedTest>($"SELECT * FROM PassedTests WHERE id_user={id_user}");
+            }
+            catch { return null; }
+        }
+        public static void AddPassTest(PassedTest passedTest)
+        {
+            using(var db= new SqlConnection(connectionString))
+            {
+                db.Open();
+                string sql = $" INSERT PassedTests (Title, CorrectQ, CountQ, Time, id_test, id_user) " +
+                    $"VALUES ('{passedTest.Time}', {passedTest.CorrectQ}, {passedTest.CountQ}, {passedTest.Time}, {passedTest.id_test}, {passedTest.id_user})";
+                db.Execute(sql);
+                db.Close();
+            }
+        }
 
     }
 }
