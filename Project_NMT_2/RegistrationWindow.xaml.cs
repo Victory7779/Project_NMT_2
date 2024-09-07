@@ -28,6 +28,7 @@ namespace Project_NMT_2
     /// </summary>
     public partial class RegistrationWindow : Window
     {
+        public static LoginWindow loginWindow;
         public RegistrationWindow()
         {
             InitializeComponent();
@@ -83,8 +84,28 @@ namespace Project_NMT_2
 
         private void SaveRegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            if(isAdminCheckBox.IsChecked == true) { SaveAdminsInformation(); return; }
-            else { SaveUserInformation(); return;}
+            if(isAdminCheckBox.IsChecked == true) 
+            { 
+                SaveAdminsInformation();
+                if (loginWindow == null)
+                {
+                    loginWindow = new LoginWindow();
+                    loginWindow.Show();
+                    this.Close();
+                }
+                else { loginWindow.Activate(); }
+            }
+            else { 
+                SaveUserInformation();
+                if (loginWindow == null)
+                {
+                    loginWindow = new LoginWindow();
+                    loginWindow.Show();
+                    this.Close();
+                }
+                else { loginWindow.Activate(); }
+            }
+            
         }
         private void SaveAdminsInformation()
         {
