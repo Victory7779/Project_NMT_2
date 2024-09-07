@@ -200,10 +200,6 @@
     <Compile Include="UserMainWindow.xaml.cs">
       <DependentUpon>UserMainWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="CheckImage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,9 +211,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CheckImage.xaml.cs">
-      <DependentUpon>CheckImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DBservice.cs" />
     <Compile Include="LoginWindow.xaml.cs">

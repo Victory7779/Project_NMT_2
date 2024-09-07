@@ -56,8 +56,8 @@ namespace Project_NMT_2
                     db.Open();
 
                     // SQL-запрос для вставки данных
-                    string sql = "INSERT INTO UserPersonalInfomations (Photo, Name, Age) " +
-                                 "VALUES (@Photo, @Name, @Age);" +
+                    string sql = "INSERT INTO UserPersonalInfomations (Photo, Name, Age, blocking) " +
+                                 "VALUES (@Photo, @Name, @Age, 0);" +
                                  "SELECT SCOPE_IDENTITY();";  // Получение ID последней вставленной записи
 
                     using (SqlCommand command = new SqlCommand(sql, db))

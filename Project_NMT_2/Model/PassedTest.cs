@@ -23,8 +23,6 @@ namespace Project_NMT_2.Model
         [Required]
         public int Time { get; set; }
         [Required]
-        public int Time { get; set; }
-        [Required]
         public int id_test { get; set; }
         [Required]
         public int id_user { get; set; }

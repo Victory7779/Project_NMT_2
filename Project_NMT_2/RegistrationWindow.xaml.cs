@@ -146,16 +146,12 @@ namespace Project_NMT_2
                 return;
 
             }
-
-
-
-
             //Проверка на правильность заполнение всех данных в окне RegistrationWindow
             bool containsCyrillic = ContainsCyrillic(UserEmailRgstrTextBox.Text);
             if (containsCyrillic == true) { MessageBox.Show("Строка [Email] вміщує символи кирилиці. Перевірте та спробуйте ще раз!"); return; }
             if (UserEmailRgstrTextBox.Text.Contains("@") != true) { MessageBox.Show("Ваш email не вміщає знаку (@), перевірте та спробуйте ще раз!"); return; }
             bool isNumeric = int.TryParse(UserAgeRgstrTextBox.Text, out _);
-            if (isNumeric == false) { MessageBox.Show("Строка [Вік] вміщує інші символи, окрім цифи. Перевірте та спробуйте ще раз!"); return; }
+            if (isNumeric == false) { MessageBox.Show("Строка [Вік] вміщує інші символи, окрім цифри. Перевірте та спробуйте ще раз!"); return; }
 
             bool checkedCheckBoxes = false;
             if (UkrCheckBox.IsChecked == true || MathCheckBox.IsChecked == true || HistoryCheckBox.IsChecked == true)
