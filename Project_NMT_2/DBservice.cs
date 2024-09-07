@@ -354,7 +354,87 @@ namespace Project_NMT_2
             }
         }
 
+        public static void AddReview(string reviewText, int userId)
+        {
+            // SQL-запрос для добавления новой записи
+            string insertSql = "INSERT INTO Reviews (review, id_user) VALUES (@review, @id_user)";
 
+            try
+            {
+                // Создаем подключение к базе данных
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // Открываем подключение
+                    connection.Open();
+
+                    // Создаем SQL-команду
+                    using (SqlCommand command = new SqlCommand(insertSql, connection))
+                    {
+                        // Добавляем параметры для защиты от SQL-инъекций
+                        command.Parameters.AddWithValue("@review", reviewText);
+                        command.Parameters.AddWithValue("@id_user", userId);
+
+                        // Выполняем команду
+                       command.ExecuteNonQuery();
+
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обрабатываем ошибки
+               MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+        public static List<ReviewWithUser> GetReviewsWithUsers()
+        {
+            // SQL-запрос для получения отзывов и имен пользователей
+            string query = @"
+            SELECT Reviews.review, UserPersonalInfomations.Name 
+            FROM Reviews
+            JOIN UserPersonalInfomations ON Reviews.id_user = UserPersonalInfomations.id";
+
+            var reviewsWithUsers = new List<ReviewWithUser>();
+
+            try
+            {
+                // Создаем подключение к базе данных
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // Открываем подключение
+                    connection.Open();
+
+                    // Создаем SQL-команду
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Выполняем команду и получаем данные
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            // Читаем данные построчно
+                            while (reader.Read())
+                            {
+                                var reviewWithUser = new ReviewWithUser
+                                {
+                                    Review = reader["review"].ToString(),
+                                    UserName = reader["Name"].ToString()
+                                };
+
+                                reviewsWithUsers.Add(reviewWithUser);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обрабатываем ошибки
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+
+            return reviewsWithUsers;
+        }
 
     }
 }

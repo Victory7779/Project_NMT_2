@@ -38,12 +38,43 @@
                             <ColumnDefinition Width="473*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBlock Background="AliceBlue" Margin="10 20 0 10" VerticalAlignment="Top" FontSize="20"> <Run Text="Вибрані предмети:"/><Run/> </TextBlock>
+                            <TextBlock Background="AliceBlue" Margin="10 20 0 10" VerticalAlignment="Top" FontSize="20"> <Run Text="Вибрані предмети:"/><Run/></TextBlock>
                             <ListBox Height="auto" Width="151" ItemsSource="{Binding SubjectsList}" FontSize="15">
-                                
+
                             </ListBox>
                         </StackPanel>
-                       
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 25 15">
+                            <Button x:Name="end_Btn"
+                                 Content="Вийти"
+                                 Width="50"
+                                 Height="25"
+                                 FontSize="15"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Margin="0 0 10 0"
+                                 Click="end_Btn_Click"/>
+                            <Button x:Name="change_Btn"
+                                 Content="Змінити"
+                                 Width="60"
+                                 Height="25"
+                                 FontSize="15"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Margin="0 0 10 0"
+                                 Click="change_Btn_Click"/>
+
+                            <Button x:Name="delete_Btn"
+                                 Content="Видалити"
+                                 Width="70"
+                                 Height="25"
+                                 FontSize="15"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                Margin="0 0 0 0"
+                                 Click="delete_Btn_Click"/>
+
+                        </StackPanel>
+
 
                     </Grid>
 
@@ -58,6 +89,12 @@
                                   Width="270"
                                   Height="200"
                                   FontSize="14">
+                            <ListView.Resources>
+                                <!-- Стиль для отключения изменения размера колонок -->
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </ListView.Resources>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
@@ -85,6 +122,12 @@
                                   Width="450"
                                   Height="200"
                                   FontSize="14">
+                            <ListView.Resources>
+                                <!-- Стиль для отключения изменения размера колонок -->
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </ListView.Resources>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
@@ -95,6 +138,15 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        <Button 
+                            Content="Вийти"
+                            Width="50"
+                            Height="25"
+                            FontSize="15"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="0 90 10 0"
+                            Click="end_Btn_Click"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
@@ -107,6 +159,12 @@
                                    Width="270"
                                    Height="200"
                                    FontSize="14">
+                            <ListView.Resources>
+                                <!-- Стиль для отключения изменения размера колонок -->
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </ListView.Resources>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
@@ -134,6 +192,12 @@
                    Width="450"
                    Height="200"
                    FontSize="14">
+                            <ListView.Resources>
+                                <!-- Стиль для отключения изменения размера колонок -->
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </ListView.Resources>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
@@ -144,6 +208,15 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        <Button 
+                            Content="Вийти"
+                            Width="50"
+                            Height="25"
+                            FontSize="15"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="0 90 10 0"
+                            Click="end_Btn_Click"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
@@ -156,6 +229,12 @@
                                    Width="270"
                                    Height="200"
                                    FontSize="14">
+                            <ListView.Resources>
+                                <!-- Стиль для отключения изменения размера колонок -->
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </ListView.Resources>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
@@ -183,6 +262,12 @@
                                    Width="450"
                                    Height="200"
                                    FontSize="14">
+                            <ListView.Resources>
+                                <!-- Стиль для отключения изменения размера колонок -->
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </ListView.Resources>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding id}"/>
@@ -193,40 +278,74 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        <Button 
+                            Content="Вийти"
+                            Width="50"
+                            Height="25"
+                            FontSize="15"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="0 90 10 0"
+                            Click="end_Btn_Click"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
             <TabItem Name="ContactsTabItem" Width="120" HorizontalAlignment="Left" Height="40" FontSize="25" Header="Контакти">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="141*"/>
+                        <RowDefinition Height="52*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="315*"/>
+                            <ColumnDefinition Width="479*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.Column="1">
+                            <TextBlock Text="Кометарі від усіх користувачів:" FontSize="16" Margin="100 0 0 5"/>
+                            <ListView x:Name="Coments_ListView"
+                               ItemsSource="{Binding reviewWithUsers}"
+                               Width="270"
+                               Height="200"
+                               FontSize="14">
+                                <ListView.Resources>
+                                    <!-- Стиль для отключения изменения размера колонок -->
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+
+                                        <GridViewColumn  Header="Ім'я" Width="90" DisplayMemberBinding="{Binding UserName}"/>
+                                        <GridViewColumn Header="Коментар" Width="180" DisplayMemberBinding="{Binding Review}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="629*"/>
+                            <ColumnDefinition Width="165*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                            <TextBlock Background="AliceBlue" Margin="10 0 0 0" FontSize="20" Width="203" HorizontalAlignment="Left" VerticalAlignment="Top">Напишіть коментар :</TextBlock>
+                            <TextBox x:Name="ContactsComentTextBox" FontSize="15" TextWrapping="Wrap" Margin="10 10 0 0"  Width="597" Height="52" MaxLength="200" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                        <Button x:Name="SendComentBtn" Grid.Column="1" Width="85" Height="30" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 20 15" Click="SendComentBtn_Click">Відправити</Button>
+                    </Grid>
+
+
+
 
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="end_Btn"
-        Content="Вийти"
-        Width="50"
-                Height="20"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="0 0 10 10"
-                Click="end_Btn_Click"/>
-        <Button x:Name="change_Btn"
-        Content="Змінити"
-        Width="55"
-        Height="20"
-        HorizontalAlignment="Right"
-        VerticalAlignment="Bottom"
-        Margin="0 0 70 10"
-        Click="change_Btn_Click"/>
-
-        <Button x:Name="delete_Btn"
-        Content="Видалити"
-        Width="60"
-        Height="20"
-        HorizontalAlignment="Right"
-        VerticalAlignment="Bottom"
-        Margin="0 0 130 10"
-        Click="delete_Btn_Click"/>
 
     </Grid>
 </Window>

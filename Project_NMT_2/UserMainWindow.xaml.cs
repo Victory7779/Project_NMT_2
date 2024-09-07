@@ -36,6 +36,7 @@ namespace Project_NMT_2
         private List<PassedTest> ukrainainTestPass;
         private List<PassedTest> mathTestPass;
         private List<PassedTest> historyTestPass;
+        private List<ReviewWithUser> reviewWithUsers;
         int? ID_user = null;
 
         private BitmapImage _userImage;
@@ -83,12 +84,31 @@ namespace Project_NMT_2
             InitializeMathTestPass();
             InitializeHistiryTest();
             InitializeHistiryTestPass();
+            InitializationOfComents();
 
            
             DataContext = this;  // Устанавливаем DataContext
            
 
 
+
+        }
+
+        private void InitializationOfComents()
+        {
+            try
+            {
+                reviewWithUsers = new List<ReviewWithUser>();
+                reviewWithUsers = DBservice.GetReviewsWithUsers().ToList();
+                if (reviewWithUsers != null)
+                {
+                    Coments_ListView.ItemsSource = reviewWithUsers;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -426,6 +446,13 @@ namespace Project_NMT_2
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+        private void SendComentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Reviews newReview = new Reviews(ContactsComentTextBox.Text, (int)ID_user);
+            DBservice.AddReview(newReview.review, newReview.id_user);
+            InitializationOfComents();
+            Coments_ListView.Items.Refresh();
+            ContactsComentTextBox.Text = "";
+        }
     }
 }

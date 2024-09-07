@@ -26,7 +26,7 @@ namespace Project_NMT_2
         public LoginWindow()
         {
             InitializeComponent();
-           // InitializeDB();
+           //InitializeDB();
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
