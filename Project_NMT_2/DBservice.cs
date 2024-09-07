@@ -14,7 +14,7 @@ namespace Project_NMT_2
 {
     public class DBservice
     {
-        private static readonly string connectionString = @"Server=EMIL-KOSTENKO\SQLEXPRESS; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
+        private static readonly string connectionString = @"Server=DESKTOP-0C5DMI4\MSSQLSERVER01; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
 
         public static string idOfUser = string.Empty;
 

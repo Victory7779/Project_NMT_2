@@ -1,0 +1,191 @@
+﻿<Window x:Class="Project_NMT_2.WindowAdmin_TestStart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_NMT_2"
+        mc:Ignorable="d"
+        Title="Адміністратор" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="ServiceDB" ObjectType="{x:Type local:ServiceDB}"/>
+        <ObjectDataProvider x:Key="SchoolSubjects" ObjectInstance="{StaticResource ResourceKey=ServiceDB}" MethodName="GetSchoolSubjects"/>
+        <Style x:Key="PurpleStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Purple"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="Purple"/>
+            <Setter Property="Background" Value="Bisque"/>
+            <!--Наклон-->
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <SkewTransform AngleX="15"/>
+                </Setter.Value>
+            </Setter>
+            <!--Тень-->
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="MediumPurple"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NameLine" TargetType="TextBlock">
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="Background" Value="Wheat"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <TabControl>
+                <TabItem Name="tabItem_Users">
+                    <!--Вложение с пользователями-->
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/Users.png" Height="25"/>
+                            <TextBlock Text="Користувачі" FontWeight="Bold"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Margin="50 35 0 0">
+                            <TextBlock Text="Користувачі"
+                                       Style="{StaticResource NameLine}"
+                                       Margin="5 0 0 10"/>
+                            <ListView x:Name="users_ListView"
+                                      Width="300"
+                                      Height="200"
+                                      ItemsSource="{Binding users}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding id}"/>
+                                        <GridViewColumn Header="Ім'я" Width="199" DisplayMemberBinding="{Binding Name}"/>
+                                        <GridViewColumn Header="Вік" Width="50" DisplayMemberBinding="{Binding Age}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="search_Btn"
+                                        Content="Пошук"
+                                        Width="70"
+                                        Height="30"
+                                        Margin="0 15 20 0"
+                                        Style="{StaticResource PurpleStyle}"
+                                        Click="search_Btn_Click"/>
+                                <Button x:Name="refresh_Btn"
+                                        Content="Оновити"
+                                        Width="70"
+                                        Height="30"
+                                        Margin="0 15 20 0"
+                                        Style="{StaticResource PurpleStyle}"
+                                        Click="refresh_Btn_Click"/>
+                            </StackPanel>
+                            
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Orientation="Vertical" Margin="70 35 0 0">
+                            <TextBlock Text="Відгуки"
+                                        Style="{StaticResource NameLine}"
+                                        Margin="5 0 0 10"/>
+                            <ListView x:Name="reviews_ListView"
+                                      Width="300"
+                                      Height="200"
+                                      ItemsSource="{Binding reviews}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding id_user}" />
+                                        <GridViewColumn Header="Відгук" Width="230" DisplayMemberBinding="{Binding review}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            
+                            <Button x:Name="blocking_Btn"
+                                    Content="Блокувати"
+                                    Width="80"
+                                    Height="30"
+                                    Margin="0 15 10 0"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource PurpleStyle}"
+                                    Click="blocking_Btn_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                
+                
+                
+                <!--Вложение с тестами-->
+                <TabItem Name="tabItem_Tests">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/Test2.png" Height="25"/>
+                            <TextBlock Text="Тести" FontWeight="Bold"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <!--Меню с кнопками-->
+                        <ToolBarTray Background="Wheat" HorizontalAlignment="Left" Orientation="Vertical">
+                            <ToolBar Band="1" BandIndex="1"  Height="200" >
+                                <!--Создание теста-->
+                                <Button Name="create_Btn" ToolTip="Створити тест" Width="50" ToolBar.OverflowMode="AsNeeded" Click="createBtn_Click">
+                                    <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/CreateTest.png"/>
+                                </Button>
+                                <!--Изменение теста-->
+                                <Button Name="update_Btn" ToolTip="Обновити тест" Width="50" ToolBar.OverflowMode="AsNeeded" Click="updateBtn_Click">
+                                    <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/UpdateTest.png"/>
+                                </Button>
+                                <!--Удаление теста-->
+                                <Button Name="delete_Btn" ToolTip="Видалити тест" Width="50" ToolBar.OverflowMode="AsNeeded" Click="deleteBtn_Click">
+                                    <Image Source="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/DeleteTest.png"/>
+                                </Button>
+                            </ToolBar>
+                        </ToolBarTray>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <!--Выбор предмета-->
+                                <Label Content="Виберіть предмет" Margin="75 5 5 5" HorizontalContentAlignment="Center"/>
+                                <ComboBox x:Name="subjectForTest_ComboBox" Width="300" Margin="40 3"
+                                          ItemsSource="{Binding Source={StaticResource SchoolSubjects}}"
+                                          SelectionChanged="subjectForTest_ComboBox_SelectionChanged">
+
+                                </ComboBox>
+                            </StackPanel>
+                            <!--Список теста-->
+                            <ListView x:Name="test_ListView" Margin="50 10 10 10" Width="600" Height="300" ItemsSource="{Binding allTest}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding id}"/>
+                                        <GridViewColumn Header="Назва" Width="470" DisplayMemberBinding="{Binding Title}"/>
+                                        <GridViewColumn Header="К-ть питань" Width="50" DisplayMemberBinding="{Binding CountQ}"/>
+                                        <GridViewColumn Header="Час" Width="50" DisplayMemberBinding="{Binding Time}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <!--Общая кнопка для выхода с программы -->
+        <Button x:Name="exit_Btn"
+                 Height="30"
+                 Width="50"
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Right"
+                 Margin="0 10 25 15"
+                 Style="{StaticResource PurpleStyle}"
+                 Click="exit_Btn_Click">
+            <TextBlock Text="Вийти"
+                FontWeight="Heavy"/>
+        </Button>
+    </Grid>
+</Window>
