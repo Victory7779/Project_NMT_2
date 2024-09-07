@@ -20,14 +20,15 @@ namespace Project_NMT_2.Model
         [Required]
         public int CountQ { get; set; }
         [Required]
-        public DateTime Time { get; set; }
+        public int Time { get; set; }
         [Required]
         public int id_test { get; set; }
         [Required]
         public int id_user { get; set; }
         public virtual UserPersonalInfomation User { get; set; }
         public virtual ALLTest ALLTests { get; set; }
-        public PassedTest(string title, int correctQ, int countQ, DateTime time, int _id_test, int _id_user)
+        public PassedTest() { }
+        public PassedTest(string title, int correctQ, int countQ, int time, int _id_test, int _id_user)
         {
             Title = title;
             CorrectQ = correctQ;
