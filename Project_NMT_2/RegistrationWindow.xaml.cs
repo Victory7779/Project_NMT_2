@@ -17,15 +17,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Project_NMT_2.Model;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using Dapper;
-using System.Threading.Tasks;
-using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Project_NMT_2

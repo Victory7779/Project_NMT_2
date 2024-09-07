@@ -58,6 +58,7 @@ namespace Project_NMT_2
         {
             RegistrationWindow registrationWindow = new RegistrationWindow();
             registrationWindow.Show();
+            this.Close();
         }
     }
 }

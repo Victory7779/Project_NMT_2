@@ -17,8 +17,36 @@ namespace Project_NMT_2
         private static readonly string connectionString = @"Server=EMIL-KOSTENKO\SQLEXPRESS; Database=TestNMT; Integrated Security=True; TrustServerCertificate=True;";
 
         public static string idOfUser = string.Empty;
-       
 
+        // Метод для получения данных пользователя из базы данных
+        public static UserPersonalInfomation GetUserData(int id_user)
+        {
+            UserPersonalInfomation userData = null;
+
+            
+            string query = "SELECT Name, Age, Photo FROM UserPersonalInfomations WHERE id = @id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id_user);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string name = reader.GetString(0);
+                        int age = reader.GetInt32(1);
+                        byte[] photo = reader[2] as byte[];
+                        userData = new UserPersonalInfomation(name, age, photo);
+                        
+                    }
+                }
+            }
+
+            return userData;
+        }
         public static void AddNewUserPersonalInformation(UserPersonalInfomation user)
         {
             try
