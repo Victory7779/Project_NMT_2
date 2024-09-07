@@ -151,6 +151,12 @@
                           Margin="40 15 5 10"
                           HorizontalAlignment="Center"
                           ItemsSource="{Binding questions}">
+                    <ListView.Resources>
+                        <!-- Стиль для отключения изменения размера колонок -->
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </Style>
+                    </ListView.Resources>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="№"

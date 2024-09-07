@@ -17,7 +17,9 @@ namespace Project_NMT_2.Model
         public string review { get; set; }
         [Required]
         public int id_user { get; set; }
+        
         public virtual UserPersonalInfomation User { get; set; }
+        public Reviews() { }
         public Reviews( string _review, int _id_user)
         {
             review = _review;

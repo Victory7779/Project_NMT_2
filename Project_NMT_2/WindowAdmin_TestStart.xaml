@@ -65,6 +65,12 @@
                                       Width="300"
                                       Height="200"
                                       ItemsSource="{Binding users}">
+                                <ListView.Resources>
+                                    <!-- Стиль для отключения изменения размера колонок -->
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </Style>
+                                </ListView.Resources>
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding id}"/>
@@ -101,6 +107,12 @@
                                       Width="300"
                                       Height="200"
                                       ItemsSource="{Binding reviews}">
+                                <ListView.Resources>
+                                    <!-- Стиль для отключения изменения размера колонок -->
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </Style>
+                                </ListView.Resources>
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding id_user}" />
@@ -161,6 +173,12 @@
                             </StackPanel>
                             <!--Список теста-->
                             <ListView x:Name="test_ListView" Margin="50 10 10 10" Width="600" Height="300" ItemsSource="{Binding allTest}">
+                                <ListView.Resources>
+                                    <!-- Стиль для отключения изменения размера колонок -->
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </Style>
+                                </ListView.Resources>
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding id}"/>

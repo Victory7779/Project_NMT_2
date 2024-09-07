@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock FontSize="100">Welcome</TextBlock>
+        <Button x:Name="startBtn" Width="100" Height="100" 
+                Click="startBtn_Click"/>
+        <Label x:Name="timer_Label" Height="50" Width="150"
+               VerticalAlignment="Top"
+               Margin="50"/>
     </Grid>
 </Window>
+

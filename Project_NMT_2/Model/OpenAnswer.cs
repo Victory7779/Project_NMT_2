@@ -23,5 +23,6 @@ namespace Project_NMT_2.Model
             textAnswerTwo = _textAnswerTwo;
             id_question = _id_question;
         }
+        public OpenAnswer() { }
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Project_NMT_2.Model
 {
@@ -32,10 +33,10 @@ namespace Project_NMT_2.Model
             Time = time;
             id_subject = _id_subject;
         }
-        public override string ToString()
-        {
-            return $"id: {id} Назва: {Title} к-ть питань: {CountQ} час: {Time}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"id: {id} Назва: {Title} к-ть питань: {CountQ} час: {Time}";
+        //}
 
     }
 }

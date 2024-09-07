@@ -27,6 +27,7 @@ namespace Project_NMT_2.Model
             question = _question;
             id_test = _id_test;
         }
+        public QuestionsForTest() { }
 
 
     }
