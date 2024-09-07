@@ -315,6 +315,45 @@ namespace Project_NMT_2
         }
 
 
+        // Admin
+        public static bool IsAdminExists(string email, string password)
+        {
+            bool userExists = false;
+
+            try
+            {
+                using (var db = new SqlConnection(connectionString))
+                {
+                    db.Open();
+
+                    string sql = "SELECT COUNT(*) FROM InitializationAdmins WHERE Email = @Email AND Password = @Password;";
+
+                    using (SqlCommand command = new SqlCommand(sql, db))
+                    {
+                        // Добавляем параметры
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        // Выполняем команду и получаем количество записей
+                        int count = (int)command.ExecuteScalar();
+
+                        // Если count больше 0, значит такой пользователь существует
+                        userExists = count > 0;
+                        db.Execute(sql);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return userExists;
+        }
+
+
+
+
 
         //Subject for test
         public static int GetIDSubject(string subject)

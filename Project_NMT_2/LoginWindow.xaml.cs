@@ -48,7 +48,18 @@ namespace Project_NMT_2
 
         private void AdminButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (DBservice.IsAdminExists(EmailTextBox.Text, PasswordTextBox.Text) == true)
+            {
+                WindowAdmin_TestStart windowAdmin_TestStart = new WindowAdmin_TestStart();
+                windowAdmin_TestStart.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ваш e-mail або пароль введені не вірно, спробуйте ще раз");
+                EmailTextBox.Text = "";
+                PasswordTextBox.Text = "";
+            }
         }
 
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
