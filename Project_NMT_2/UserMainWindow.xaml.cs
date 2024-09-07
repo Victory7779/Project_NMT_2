@@ -75,6 +75,8 @@ namespace Project_NMT_2
             InitializeComponent();
             ID_user = id_user;
             Show_NotShowTabitem();
+            LoadUserData(id_user);
+            ShowListofSubjects();
             InitializeUkrTest();
             InitializeUkrTestPass();
             InitializeMathTest();
@@ -84,8 +86,7 @@ namespace Project_NMT_2
 
            
             DataContext = this;  // Устанавливаем DataContext
-            LoadUserData(id_user);
-            ShowListofSubjects();
+           
 
 
 
@@ -351,7 +352,42 @@ namespace Project_NMT_2
             }
         }
 
-        
+        private void change_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void delete_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Ви підтверджуєте, що хочете видалити акаунт назавжди, без можливості відновити його?";
+                string caption = "Видалення аккаунта";
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage image = MessageBoxImage.Exclamation;
+                MessageBoxResult result = System.Windows.MessageBox.Show(messageBoxText, caption, button, image, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes)
+                {
+                    DBservice.DeleteUser((int)ID_user);
+                    LoginWindow loginWindow = new LoginWindow();    
+                    loginWindow.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
+
+
 
         private void LoadUserData(int id_user)
         {

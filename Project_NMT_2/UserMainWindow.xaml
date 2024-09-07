@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_NMT_2"
         mc:Ignorable="d"
+        ResizeMode ="NoResize"
+        WindowStartupLocation="CenterScreen"
         Title="UserMainWindow" Height="450" Width="800">
     <Grid>
         <TabControl x:Name="SubjectstabControl">
@@ -201,12 +203,30 @@
             </TabItem>
         </TabControl>
         <Button x:Name="end_Btn"
-                Content="Вийти"
-                Width="50"
+        Content="Вийти"
+        Width="50"
                 Height="20"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="0 0 10 10"
                 Click="end_Btn_Click"/>
+        <Button x:Name="change_Btn"
+        Content="Змінити"
+        Width="55"
+        Height="20"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        Margin="0 0 70 10"
+        Click="change_Btn_Click"/>
+
+        <Button x:Name="delete_Btn"
+        Content="Видалити"
+        Width="60"
+        Height="20"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        Margin="0 0 130 10"
+        Click="delete_Btn_Click"/>
+
     </Grid>
 </Window>

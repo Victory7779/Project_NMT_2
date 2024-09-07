@@ -139,6 +139,46 @@ namespace Project_NMT_2
             
         }
 
+        public static void DeleteUser(int id_user)
+        {
+            // ID пользователя, которого нужно удалить
+           
+            // SQL-запросы на удаление
+            string deleteSql = @"
+            DELETE FROM SubjectUsers WHERE id_user = @id_user;
+             DELETE FROM Reviews WHERE id_user = @id_user;
+             DELETE FROM PassedTests WHERE id_user = @id_user;
+             DELETE FROM InitializationUsers WHERE id_user = @id_user;
+             DELETE FROM UserPersonalInfomations WHERE id = @id_user;";
+
+            try
+            {
+                // Создаем подключение к базе данных
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // Открываем подключение
+                    connection.Open();
+
+                    // Создаем SQL-команду
+                    using (SqlCommand command = new SqlCommand(deleteSql, connection))
+                    {
+                        // Добавляем параметр id_user
+                        command.Parameters.AddWithValue("@id_user", id_user);
+
+                        // Выполняем команду
+                        command.ExecuteNonQuery();
+
+                        // Выводим количество удалённых строк
+                        MessageBox.Show($"Акаунт був видалений назавжди!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обрабатываем ошибки
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
         public static void AddNewInitializationAdmins(InitializationAdmin initializationAdmin)
         {
             try
@@ -313,6 +353,8 @@ namespace Project_NMT_2
                 db.Close();
             }
         }
+
+
 
     }
 }
