@@ -25,7 +25,7 @@ namespace Project_NMT_2
         {
            // Console.OutputEncoding = Encoding.UTF8;
             InitializeComponent();
-            InitializeDB();
+            //InitializeDB();
         }
 
         public void InitializeDB()
