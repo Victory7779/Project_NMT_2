@@ -1,0 +1,44 @@
+﻿<Window x:Class="Project_NMT_2.WindowTask_Passing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_NMT_2"
+        mc:Ignorable="d"
+        Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/iconForWindow.png"
+         ResizeMode ="NoResize"
+         Background="AntiqueWhite"
+         WindowStartupLocation="CenterScreen"
+        Title="Success Питання" Height="450" Width="800">
+    <Grid>
+        <!-- Верхня панель -->
+        <DockPanel LastChildFill="True" Margin="10">
+            <Button Content="← Назад" Width="100" DockPanel.Dock="Left" Margin="5"/>
+            <TextBlock Text="Тестування" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="Акаунт" FontSize="16" Height="353" Width="75" RenderTransformOrigin="0.512,0.508"/>
+        </DockPanel>
+
+        <!-- Основний контент -->
+        <Grid Margin="10,60,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Запитання -->
+            <TextBlock x:Name="QuestionTextBlock" FontSize="18" Margin="122,0,0,10" Text="Запитання буде тут"/>
+
+            <!-- Варіанти відповідей -->
+            <StackPanel x:Name="AnswersPanel" Grid.Row="1" Margin="0,10,0,10" Orientation="Vertical">
+                <!-- Варіанти відповідей будуть додаватись тут динамічно -->
+            </StackPanel>
+
+            <!-- Таймер і кнопка -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="TimerTextBlock" Text="Таймер: 00:00" FontSize="16" Margin="0,0,20,0"/>
+                <Button x:Name="NextButton" Content="Наступне питання" FontSize="16" Padding="10,5" Click="NextQuestionButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

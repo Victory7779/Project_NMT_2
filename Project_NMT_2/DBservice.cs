@@ -387,7 +387,7 @@ namespace Project_NMT_2
             {
                 db.Open();
                 string sql = $" INSERT PassedTests (Title, CorrectQ, CountQ, Time, id_test, id_user) " +
-                    $"VALUES ('{passedTest.Time}', {passedTest.CorrectQ}, {passedTest.CountQ}, {passedTest.Time}, {passedTest.id_test}, {passedTest.id_user})";
+                    $"VALUES ('{passedTest.Title}', {passedTest.CorrectQ}, {passedTest.CountQ}, {passedTest.Time}, {passedTest.id_test}, {passedTest.id_user})";
                 db.Execute(sql);
                 db.Close();
             }

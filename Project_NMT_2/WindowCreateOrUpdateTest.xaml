@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_NMT_2"
         mc:Ignorable="d"
-        Title="Тест" 
+        Title="Success Тест" 
         Height="450" 
         Width="800"
+        Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/iconForWindow.png"
         Background="AntiqueWhite"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">

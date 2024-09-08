@@ -16,6 +16,8 @@ namespace Project_NMT_2
     /// </summary>
     public partial class UserMainWindow : Window
     {
+        public WindowTask_Passing windowTask_Passing;
+
         private List<ALLTest> ukrainainTest;
         private List<ALLTest> mathTest;
         private List<ALLTest> historyTest;
@@ -302,6 +304,16 @@ namespace Project_NMT_2
                 DBservice.AddPassTest(new PassedTest(test.Title, 0, test.CountQ, 20, test.id, int.Parse(ID_user.ToString())));
                 InitializeUkrTestPass();
                 ukrTestPASS_ListView.Items.Refresh();
+                if(windowTask_Passing==null)
+                {
+                    windowTask_Passing = new WindowTask_Passing(test.id);
+                    windowTask_Passing.Show();
+                }
+                else
+                {
+                    windowTask_Passing.Activate();
+                }
+
             }
             catch(Exception ex)
             {
@@ -317,6 +329,7 @@ namespace Project_NMT_2
                 DBservice.AddPassTest(new PassedTest(test.Title, 0, test.CountQ, 20, test.id, int.Parse(ID_user.ToString())));
                 InitializeMathTestPass();
                 mathTestPASS_ListView.Items.Refresh();
+                windowTask_Passing = new WindowTask_Passing(test.id);
             }
             catch (Exception ex)
             {
@@ -332,6 +345,7 @@ namespace Project_NMT_2
                 DBservice.AddPassTest(new PassedTest(test.Title, 0, test.CountQ, 20, test.id, int.Parse(ID_user.ToString())));
                 InitializeHistiryTestPass();
                 historyTestPASS_ListView.Items.Refresh();
+                windowTask_Passing = new WindowTask_Passing(test.id);
             }
             catch (Exception ex)
             {

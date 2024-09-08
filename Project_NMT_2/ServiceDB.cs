@@ -328,6 +328,14 @@ namespace Project_NMT_2
             }
         }
 
+        public static IEnumerable<SingleChoiceAnswer> GetSingleChoiceAnswersForQuestion(int id_question)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<SingleChoiceAnswer>($"SELECT * FROM SingleChoiceAnswers WHERE id_question={id_question}");
+            }
+            catch { return null; }
+        }
         ///Answer MultipleChoiceAnswer
         ///
         //Добавление список ответов
@@ -346,6 +354,14 @@ namespace Project_NMT_2
             }
         }
 
+        public static IEnumerable<MultipleChoiceAnswer> GetMultipleChoiceAnswerForQuestion(int id_question)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<MultipleChoiceAnswer>($"SELECT * FROM MultipleChoiceAnswers WHERE id_question={id_question}");
+            }
+            catch { return null; }
+        }
         ///Answer OpenAnswer
         ///
         //Добавление список ответов
@@ -362,6 +378,14 @@ namespace Project_NMT_2
             }
         }
 
+        public static IEnumerable<OpenAnswer> GetOpenAnswerForQuestion(int id_question)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<OpenAnswer>($"SELECT * FROM OpenAnswers WHERE id_question={id_question}");
+            }
+            catch { return null; }
+        }
         ///Answer MachingAnswer
         ///
         //Добавление список ответов
@@ -378,7 +402,14 @@ namespace Project_NMT_2
             }
         }
 
-
+        public static IEnumerable<MachingAnswer> GetMachingAnswerForQuestion(int id_question)
+        {
+            try
+            {
+                return new SqlConnection(connectionString).Query<MachingAnswer>($"SELECT * FROM MachingAnswers WHERE id_question={id_question}");
+            }
+            catch { return null; }
+        }
         //Users
         //____________________________________________________________
         public static IEnumerable<UserPersonalInfomation> GetAllUsers ()

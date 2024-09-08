@@ -1,0 +1,96 @@
+﻿<Window x:Class="Project_NMT_2.WindowTask_Confonmity"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_NMT_2"
+        mc:Ignorable="d"
+        Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/iconForWindow.png"
+         ResizeMode ="NoResize"
+         Background="AntiqueWhite"
+         WindowStartupLocation="CenterScreen"
+        Title="Success Питання" Height="450" Width="800">
+    <Grid>
+        <!-- Верхня панель з кнопкою назад, акаунтом і таймером -->
+        <DockPanel LastChildFill="True" Height="50" VerticalAlignment="Top">
+            <!-- Кнопка Назад -->
+            <Button Content="← Назад" Width="100" DockPanel.Dock="Left" Margin="5"/>
+
+            <!-- Акаунт -->
+            <TextBlock Text="Акаунт" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" FontSize="16"/>
+
+            <!-- Таймер -->
+            <TextBlock x:Name="timer_Label" Text="Таймер: 60:00" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="Red"/>
+        </DockPanel>
+
+        <!-- Основний вміст -->
+        <Grid Margin="10,60,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовки для запитань і відповідей -->
+            <TextBlock Text="Запитання" Grid.Column="0" FontSize="18" VerticalAlignment="Top" Margin="0,0,0,10"/>
+            <TextBlock Text="Відповідь" Grid.Column="1" FontSize="18" VerticalAlignment="Top" Margin="10,0,0,10"/>
+
+            <!-- Список запитань та відповідей -->
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,10,10,10">
+                <TextBlock Text="1 - " FontSize="16" Margin="0,5"/>
+                <TextBlock Text="2 - " FontSize="16" Margin="0,5"/>
+                <TextBlock Text="3 - " FontSize="16" Margin="0,5"/>
+                <TextBlock Text="4 - " FontSize="16" Margin="0,5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,10,0,10">
+                <ComboBox FontSize="16" Margin="0,5">
+                    <ComboBoxItem Content="а" />
+                    <ComboBoxItem Content="б" />
+                    <ComboBoxItem Content="в" />
+                    <ComboBoxItem Content="г" />
+                </ComboBox>
+
+                <ComboBox FontSize="16" Margin="0,5">
+                    <ComboBoxItem Content="а" />
+                    <ComboBoxItem Content="б" />
+                    <ComboBoxItem Content="в" />
+                    <ComboBoxItem Content="г" />
+                </ComboBox>
+
+                <ComboBox FontSize="16" Margin="0,5">
+                    <ComboBoxItem Content="а" />
+                    <ComboBoxItem Content="б" />
+                    <ComboBoxItem Content="в" />
+                    <ComboBoxItem Content="г" />
+                </ComboBox>
+
+                <ComboBox FontSize="16" Margin="0,5">
+                    <ComboBoxItem Content="а" />
+                    <ComboBoxItem Content="б" />
+                    <ComboBoxItem Content="в" />
+                    <ComboBoxItem Content="г" />
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Текстове поле для питання -->
+            <TextBlock x:Name="QuestionTextBlock" Text="Питання тут буде відображатися" FontSize="18" Grid.Column="0" Grid.Row="0" Margin="94,0,166,282" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
+
+            <!-- Панель для відповідей -->
+            <StackPanel x:Name="AnswersPanel" Grid.Column="0" Grid.Row="1" Margin="0,34,10,10" Orientation="Vertical">
+                <!-- Відповіді будуть додані динамічно у коді -->
+            </StackPanel>
+
+            <!-- Нижня панель з кнопками -->
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="Перейти до наступного" FontSize="16" Padding="10,5" Margin="10,0"/>
+                <Button Content="Зберегти та перейти" FontSize="16" Padding="10,5" Margin="10,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -6,23 +6,59 @@
         xmlns:local="clr-namespace:Project_NMT_2"
         mc:Ignorable="d"
         ResizeMode ="NoResize"
+        Icon="V:\Рабочии столы\IT STEP\Курсовая№1\Photo/iconForWindow.png"
         WindowStartupLocation="CenterScreen"
-        Title="RegistrationWindow" Height="450" Width="800">
+        Title="Success Регістрація" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <!--Наклон-->
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <SkewTransform AngleX="15"/>
+                </Setter.Value>
+            </Setter>
+            <!--Тень-->
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Green"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="Background" Value="Bisque"/>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="GreenYellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HeaderWindow" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+        </Style>
+        <Style  TargetType="TextBox">
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="209*"/>
             <RowDefinition Height="175*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Text="Регістрація"></TextBlock>
-        <Grid Grid.Row="1">
+        <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Text="Регістрація" Style="{StaticResource HeaderWindow}"></TextBlock>
+        <Grid Grid.Row="1" Background="Wheat">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="201*"/>
                 <ColumnDefinition Width="178*"/>
                 <ColumnDefinition Width="421*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0"  Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Height="181" Width="150">
-                <Border Height="125" Width="125" BorderThickness="1" Margin="25 15 0 0" BorderBrush="#FF000000">
+                <Border Height="125" Width="125" BorderThickness="1" Margin="25 15 0 0" BorderBrush="#FF000000" Background="White">
                     <Image x:Name="UserPictureRegistrationImage" Height="125" Width="125" ></Image>
                 </Border>
                 <Button x:Name="AddPhotoRgstrButton" FontSize="20" Margin="25 10 0 0" Click="AddPhotoRgstrButton_Click">Add Photo</Button>
